@@ -29,16 +29,16 @@ demand_nutrient <- function(soil_dt, vars, nutrient = "all") `: dt` ({
   data.table::setDT(vars)
   ntrt_results_dt <- data.table::data.table()
   # prevent "no visible binding for global variable" NOTE
-  ..tbl_col_names <- ..vars_col_names <- NULL
+  .SD <- .SDcols <- NULL
 
   # nitrogen
   if ("nitrogen" %in% nutrient) {
     tbl_col_names <- names(templates_l$soils_l$n)
-    soil_n_dt     <- soil_dt[, ..tbl_col_names]
+    soil_n_dt     <- soil_dt[, .SD, .SDcols = tbl_col_names]
     ensure_as_template(soil_n_dt, templates_l$soils_l$n)
 
     vars_col_names <- names(templates_l$vars_l$n)
-    vars_n_dt      <- vars[, ..vars_col_names]
+    vars_n_dt      <- vars[, .SD, .SDcols = vars_col_names]
     ensure_as_template(vars_n_dt, templates_l$vars_l$n)
 
     nitrogen <- NULL
@@ -48,11 +48,11 @@ demand_nutrient <- function(soil_dt, vars, nutrient = "all") `: dt` ({
   # phosphorus
   if ("phosphorus" %in% nutrient) {
     tbl_col_names <- names(templates_l$soils_l$p)
-    soil_p_dt     <- soil_dt[, ..tbl_col_names]
+    soil_p_dt     <- soil_dt[, .SD, .SDcols = tbl_col_names]
     ensure_as_template(soil_p_dt, templates_l$soils_l$p)
 
     vars_col_names <- names(templates_l$vars_l$p)
-    vars_p_dt      <- vars[, ..vars_col_names]
+    vars_p_dt      <- vars[, .SD, .SDcols = vars_col_names]
     ensure_as_template(vars_p_dt, templates_l$vars_l$p)
 
     phosphorus <- NULL
@@ -62,11 +62,11 @@ demand_nutrient <- function(soil_dt, vars, nutrient = "all") `: dt` ({
   # potassium
   if ("potassium" %in% nutrient) {
     tbl_col_names <- names(templates_l$soils_l$k)
-    soil_k_dt     <- soil_dt[, ..tbl_col_names]
+    soil_k_dt     <- soil_dt[, .SD, .SDcols = tbl_col_names]
     ensure_as_template(soil_k_dt, templates_l$soils_l$k)
 
     vars_col_names <- names(templates_l$vars_l$k)
-    vars_k_dt      <- vars[, ..vars_col_names]
+    vars_k_dt      <- vars[, .SD, .SDcols = vars_col_names]
     ensure_as_template(vars_k_dt, templates_l$vars_l$k)
 
     potassium <- NULL
