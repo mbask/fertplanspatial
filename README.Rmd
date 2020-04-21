@@ -1,0 +1,80 @@
+---
+title: "Vignette Title"
+output: github_document
+references:
+- id: guidelines2020
+  title: Parte agronomica, norme generali, Disciplinare di Produzione Integrata della Regione Lazio - SQNPI
+  author:
+  - family: Assessorato Agricoltura, Promozione della Filiera e della Cultura del Cibo, Ambiente e Risorse Naturali
+  URL: 'http://www.regione.lazio.it/rl_agricoltura/?vw=documentazioneDettaglio&id=52065'
+  publisher: Regione Lazio
+  type: report
+  issued:
+    year: 2020
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(data.table)
+library(fertplanspatial)
+```
+
+
+## Description
+
+The goal of the package is to define fertilization plans for the fields of a farm and spatialize them. Fertilization plans in the Lazio region territory have to follow these agronomic guidelines with specific attention to [attachment no. 2](http://www.regione.lazio.it/binary/rl_main/tbl_documenti/AGC_DD_G01782_24_02_2020_Allegato1.pdf "PDF file of the Attachment 2 of the guidelines") [@guidelines2020] and relies on R package `fertplan` to perform the raw computations.
+
+
+## Installation
+
+`fertplanspatial` is currently in active development and not yet on CRAN, it may be installed from this GitHub repository though:
+
+```{r, eval = FALSE}
+# Install devtools package if not yet present in R library
+# install.packages("devtools")
+
+devtools::install_github("mbask/fertplanspatial")
+```
+
+
+## Usage
+
+```{r}
+data(soils)
+knitr::kable(soils)
+```
+
+
+
+```{r}
+soil_vars <- list(
+  # Common vars among nitrogen, phosphorus, and potassium
+  crop                 = "Girasole", # to be looked up in table 15.2 (page 63)
+  expected_yield_kg_ha = 1330,
+  texture              = "Loam", # to be chosen among Sandy, Loam, Clayey
+  
+  # Additional vars for nitrogen
+  crop_type            = "Girasole",  # to be looked up in table 15.3 (page 67)
+  prev_crop            = "Prati: polifita con meno del 5%", # to be looked up in table 5 (page 24)
+  drainage_rate        = "slow", # to be looked up in table 4 (page 23)
+  oct_jan_2019_pr_mm   = 350,
+  n_supply_prev_frt_kg_ha = 0,
+  n_supply_atm_coeff   = 1,
+
+  # Common vars among phosphorus and potassium
+  soil_depth_cm        = 30,
+  
+  # Additional vars for phosphorus
+  crop_class           = "Girasole") # to be looked up in table 10 (page 32)
+
+```
+
+
+```{r}
+nutrient_dt <- demand_nutrient(soils, soil_vars, c("all"))
+print(nutrient_dt)
+```
+

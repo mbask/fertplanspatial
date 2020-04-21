@@ -1,0 +1,24 @@
+#' Soil physical and chemical analyses
+#'
+#' A dataset containing the results of physical and chemical analyses on 20
+#' samples of soil in a field located in the property of the Italian Council
+#' for Agricultural Research and Economica, Research Centre for Engineering
+#' and Agro-Food Processing of Monterotondo (Rome).
+#'
+#'
+#' @format A data table with 20 analyses (rows) and 13 features(columns):
+#' \describe{
+#'   \item{id}{}
+#'   \item{X}{}
+#'   \item{Y}{}
+#'   \item{N_pc}{}
+#'   \item{C_pc}{}
+#'   \item{CNR}{}
+#'   \item{SOM_pc}{}
+#'   \item{P_ppm}{}
+#'   \item{K_ppm}{}
+#'   \item{Limestone_pc}{}
+#'   \item{Clay_pc}{}
+#' }
+#' @source \url{https://www.journals.elsevier.com/european-journal-of-agronomy}
+"soils"
