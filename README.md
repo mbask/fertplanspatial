@@ -102,6 +102,8 @@ print(nutrient_dt)
 #> 20: -24.8624    59.3725  -851.8540
 ```
 
+## References
+
 <div id="refs" class="references hanging-indent">
 
 <div id="ref-guidelines2020">

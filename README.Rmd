@@ -78,3 +78,5 @@ nutrient_dt <- demand_nutrient(soils, soil_vars, c("all"))
 print(nutrient_dt)
 ```
 
+
+## References
