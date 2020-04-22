@@ -18,7 +18,10 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(warn = -1)
 library(data.table)
+library(ggplot2)
+library(raster)
 library(fertplanspatial)
 ```
 
@@ -83,24 +86,25 @@ knitr::kable(soils)
 ```
 
 ```{r}
-spatials_l <- spatial_nutrient(soils_spatial, 10)
+spatials_l <- spatial_nutrient(soils_spatial, spat_res = 10)
 
 
-library(ggplot2)
 
-ggplot(as.data.frame(spatials_l$k), aes(x = X, y = Y)) +
+
+ggplot(as.data.frame(spatials_l$n), aes(x = X, y = Y)) +
   geom_tile(aes(fill = var1.pred)) +
   geom_point(data = as.data.frame(soils_spatial)) +
   coord_equal() +
   scale_fill_distiller(palette = "Spectral") +
   labs(title = "N fertilization plan", fill = "Concentration\n(kg/ha)") +
   theme_bw()
+```
 
-# # coerce to SpatialPixelsDataFrame
-# kriges_spdf_l <- lapply(spatials_l, function(spg) { sp::gridded(spg) <- TRUE; spg })
-# krige_rs      <- raster::stack(lapply(kriges_spdf_l, raster::raster))
-# plot(krige_rs)
-
+```{r}
+# coerce to SpatialPixelsDataFrame
+kriges_spdf_l <- lapply(spatials_l, function(spg) { sp::gridded(spg) <- TRUE; spg })
+krige_rs      <- raster::stack(lapply(kriges_spdf_l, raster::raster))
+plot(krige_rs)
 ```
 
 
