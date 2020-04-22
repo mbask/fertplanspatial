@@ -2,25 +2,117 @@
 % Please edit documentation in R/demand_nutrient.R
 \name{demand_nutrient}
 \alias{demand_nutrient}
-\title{Title}
+\title{Compute NPK fertilization}
 \usage{
 demand_nutrient(soil_dt, vars, nutrient = "all")
 }
 \arguments{
-\item{soil_dt}{a \code{data.table} of soil properties (columns) x soil samples (rows). Its features (soil analyses) depend on the nutrient fertilization specificed in \code{nutrient} parameter}
+\item{soil_dt}{a \code{data.table} of soil properties (columns)
+x soil samples (rows). The specific features (soil analyses) that
+must be passed in the \code{data.table} depend on the
+nutrient fertilization passed in \code{nutrient} parameter}
 
-\item{vars}{a \code{list} of variables shared between soil samples. The specific analyses depend on the nutrient fertilization specified in \code{nutrient} parameter}
+\item{vars}{a \code{list} of variables shared between all soil
+samples. The specific variables needed depend on the nutrient fertilization
+passed in \code{nutrient} parameter}
 
-\item{nutrient}{a character vector detailing which nutrient fertilization plan to compute among "nitrogen", "phosphorus", and "potassium". Any combination of the three nutrients can be given or "All" (default) to computeall of them.}
+\item{nutrient}{a character vector detailing which nutrient
+fertilization plan to compute among "nitrogen", "phosphorus", and
+"potassium". Any combination of the three nutrients can be given or
+"all" (default) to compute all of them.}
 }
 \value{
-a \code{data.table} with as many features as nutrients given as \code{nutrient} parameter and as many rows as soil properties given as \code{soil_dt} parameter.
+a \code{data.table} with as many features as nutrients
+given as \code{nutrient} parameter and as many rows as soil samples
+given as \code{soil_dt} parameter.
 }
 \description{
-More informations on soil properties and other variables related to the crop and the environment can be found in \code{\link{templates_l}}, in package \code{fertplan} help pages and vignettes and in the guideline of Region Lazio.
+This is the main interface hub to all \code{fertplan} package functions. Its main
+objective is to relieve the user from the process of computing all NPK flow
+components (\emph{i.e.} $f_{N,a}-f_{N,g}$ for nitrogen) that make each nutrient
+budget.
+}
+\details{
+To compure NPK fertilization plans soil, a few chemical and physical analysis
+on soil samples are needed as well as some informations on the environment
+and related to the crop to be sown.
+
+All soil samples chemical and physical analyses (\emph{i.e.} for nitrogen nutrien:
+percentage of nitrogen, carbon / nitrogen ratio, organic matter percentage,
+clay content in percentage) needed to compute each nutrient budget must be
+passed as \code{data.table} columns and soil samples as rows, as in the following
+example for nitrogen:\tabular{rrrr}{
+   N_pc \tab CNR \tab SOM_pc \tab Clay_pc \cr
+   0.139 \tab 9.57 \tab 2.30 \tab 34 \cr
+   0.165 \tab 9.82 \tab 2.79 \tab 37 \cr
+   0.160 \tab 9.75 \tab 2.69 \tab 40 \cr
+}
+
+
+The order of the features/columns is unimportant. An example of features
+needed for Phosphorus nutrient:\tabular{rr}{
+   P_ppm \tab Limestone_pc \cr
+   11 \tab 17.4 \cr
+   14 \tab 9.5 \cr
+   14 \tab 12.2 \cr
+}
+
+
+An example of features needed for Potassium nutrient:\tabular{rr}{
+   K_ppm \tab Clay_pc \cr
+   449 \tab 34 \cr
+   359 \tab 37 \cr
+   398 \tab 40 \cr
+}
+
+
+Other environmental and crop-related informazions needed for each nutrient
+computation can be passed as elements of a list. The function assumes
+that these features are shared among all soil samples. Specific informations
+on these variables can be found on the nitrogen, phosphorus, and potassium
+vignettes of the \code{fertplan} package and strictly depend on the Lazio Region
+guidelines.
+
+Environmental features needed for \strong{nitrogen} nutrient:
+\itemize{
+\item \strong{crop}, The crop name to be sown, to be looked up in table 15.2 (page 63 of the guidelines)
+\item \strong{crop_type}, The crop type to be sown,  to be looked up in table 15.3 (page 67)
+\item \strong{expected_yield_kg_ha}, Expected crop yield in kg/ha
+\item \strong{prev_crop}, Soil clay content, to be looked up in table 5 (page 24)
+\item \strong{texture}, Soil texture from (one of "Sandy", "Loam", "Clayey")
+\item \strong{drainage_rate}, Rate of drainage in soil (either "fast", "normal", "slow", "no drainage")
+\item \strong{oct_jan_pr_mm}, cumulative precipitation in mm in the 4 months-period October - January
+\item \strong{n_supply_prev_frt_kg_ha}, Supply from organic fertilizations in kg/ha
+\item \strong{n_supply_atm_coeff}, A ratio to correct the N from atmosphere in kg/ha
+}
+
+Environmental features needed for \strong{phosphorus} nutrient:
+\itemize{
+\item \strong{crop}, The crop name to be sown, to be looked up in table 15.2 (page 63 of the guidelines)
+\item \strong{crop_class}, The class of crop to be sown, to be looked up in table 10 (page 32)
+\item \strong{expected_yield_kg_ha}, Expected crop yield in kg/ha
+\item \strong{texture}, Soil texture from (one of "Sandy", "Loam", "Clayey")
+\item \strong{soil_depth_cm}, depth of soil tillage practise in cm, usually 30 or 40 cm
+}
+
+Environmental features needed for \strong{potassium} nutrient:
+\itemize{
+\item \strong{crop}, The crop name to be sown, to be looked up in table 15.2 (page 63 of the guidelines)
+\item \strong{expected_yield_kg_ha}, Expected crop yield in kg/ha
+\item \strong{texture}, Soil texture from (one of "Sandy", "Loam", "Clayey")
+\item \strong{soil_depth_cm}, depth of soil tillage practise in cm, usually 30 or 40 cm
+}
+
+More informations on soil properties and other variables related to the
+crop and the environment can be found in \code{\link{templates_l}},
+in package \href{http://github.com/mbask/fertplan}{fertplan} help pages, and in vignettes and in the
+guideline of Region Lazio.
 }
 \seealso{
-\code{fertplan} package.
+\href{http://github.com/mbask/fertplan}{fertplan} package.
 
-Assessorato Agricoltura, Promozione della Filiera e della Cultura del Cibo, Ambiente e Risorse Naturali. 2020. “Parte Agronomica, Norme Generali, Disciplinare Di Produzione Integrata Della Regione Lazio - SQNPI.” Regione Lazio. \url{http://www.regione.lazio.it/rl_agricoltura/?vw=documentazioneDettaglio&id=52065}.
+Assessorato Agricoltura, Promozione della Filiera e della Cultura del
+Cibo, Ambiente e Risorse Naturali. 2020. “Parte Agronomica, Norme Generali,
+Disciplinare Di Produzione Integrata Della Regione Lazio - SQNPI.” Regione Lazio.
+\url{http://www.regione.lazio.it/rl_agricoltura/?vw=documentazioneDettaglio&id=52065}.
 }

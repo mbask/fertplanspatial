@@ -12,59 +12,65 @@ passed as argument to \code{\link[=demand_nutrient]{demand_nutrient()}} function
 entire object (eg \code{data.table}), name and class of each feature (column, eg \code{numeric},
 \code{character}) are concerned.
 
-The data object are passed to appropriate \code{fertplan} functions by \code{demand_nutrient},
+The data object are passed to appropriate \code{fertplan} functions by \code{\link[=demand_nutrient]{demand_nutrient()}},
 further information on features (soil and vars), and their unit of measure can be found in
 help pages and vignettes of the \code{fertplan} package.
 
 Templates for \strong{Nitrogen} nutrient:
 
 \code{soils_l}:
-\describe{
-\item{N_pc}{Percentage of nitrogen in soil, \code{numeric}}
-\item{CNR}{Soil carbon / nitrogen ratio, \code{numeric}}
-\item{SOM_pc}{Soil Organic Matter percentage, \code{numeric}}
-\item{Clay_pc}{Soil clay content, \code{numeric}}}
+\itemize{
+\item \strong{N_pc}, Percentage of nitrogen in soil, \code{numeric}
+\item \strong{CNR}, Soil carbon / nitrogen ratio, \code{numeric}
+\item \strong{SOM_pc}, Soil Organic Matter percentage, \code{numeric}
+\item \strong{Clay_pc}, Soil clay content, \code{numeric}
+}
 
 \code{vars_l}:
-\describe{
-\item{crop}{The crop name to be sown, \code{character}}
-\item{crop_type}{The crop type to be sown, \code{character}}
-\item{expected_yield_kg_ha}{Expected crop yield, \code{numeric}}
-\item{prev_crop}{Soil clay content, \code{character}}
-\item{texture}{Soil texture from (one of "Sandy", "Loam", "Clayey"), \code{character}}
-\item{drainage_rate}{Rate of drainage in soil (either "fast", "normal", "slow", "no drainage"), \code{character}}
-\item{oct_jan_2019_pr_mm}{cumulative precipitation in mm in the 4 months-period October - January, \code{numeric}}
-\item{n_supply_prev_frt_kg_ha}{Supply from organic fertilizations, \code{numeric}}
-\item{n_supply_atm_coeff}{A ratio to correct the N from atmosphere, \code{numeric}}}
+\itemize{
+\item \strong{crop}, The crop name to be sown, \code{character}
+\item \strong{crop_type}, The crop type to be sown, \code{character}
+\item \strong{expected_yield_kg_ha}, Expected crop yield, \code{numeric}
+\item \strong{prev_crop}, Soil clay content, \code{character}
+\item \strong{texture}, Soil texture from (one of "Sandy", "Loam", "Clayey"), \code{character}
+\item \strong{drainage_rate}, Rate of drainage in soil (either "fast", "normal", "slow", "no drainage"), \code{character}
+\item \strong{oct_jan_2019_pr_mm}, cumulative precipitation in mm in the 4 months-period October - January, \code{numeric}
+\item \strong{n_supply_prev_frt_kg_ha}, Supply from organic fertilizations, \code{numeric}
+\item \strong{n_supply_atm_coeff}, A ratio to correct the N from atmosphere, \code{numeric}
+}
 
 Templates for \strong{Phosphorus} nutrient:
 
 \code{soils_l}:
-\describe{
-\item{P_ppm}{Phosphorus in soil in ppm (mg/kg), \code{numeric}}
-\item{Limestone_pc}{Calcium in soil in percentage, \code{numeric}}}
+\itemize{
+\item \strong{P_ppm}, Phosphorus in soil in ppm (mg/kg), \code{numeric}
+\item \strong{Limestone_pc}, Calcium in soil in percentage, \code{numeric}
+}
 
 \code{vars_l}:
-\describe{
-\item{crop}{The crop name to be sown, \code{character}}
-\item{crop_B_P}{The class of crop to be sown, \code{character}}
-\item{expected_yield_kg_ha}{Expected crop yield, \code{numeric}}
-\item{texture}{Soil texture from (one of "Sandy", "Loam", "Clayey"), \code{character}}
-\item{soil_depth_cm}{depth of soil tillage practise, \code{numeric}}}
+\itemize{
+\item \strong{crop}, The crop name to be sown, \code{character}
+\item \strong{crop_class}, The class of crop to be sown, \code{character}
+\item \strong{expected_yield_kg_ha}, Expected crop yield, \code{numeric}
+\item \strong{texture}, Soil texture from (one of "Sandy", "Loam", "Clayey"), \code{character}
+\item \strong{soil_depth_cm}, depth of soil tillage practise, \code{numeric}
+}
 
 Templates for \strong{Potassium} nutrient:
 
 \code{soils_l}:
-\describe{
-\item{K_ppm}{Potassium in soil in ppm (mg/kg), \code{numeric}}
-\item{Clay_pc}{Soil clay content, \code{numeric}}}
+\itemize{
+\item \strong{K_ppm}, Potassium in soil in ppm (mg/kg), \code{numeric}
+\item \strong{Clay_pc}, Soil clay content, \code{numeric}
+}
 
 \code{vars_l}:
-\describe{
-\item{crop}{The crop name to be sown, \code{character}}
-\item{expected_yield_kg_ha}{Expected crop yield, \code{numeric}}
-\item{texture}{Soil texture from (one of "Sandy", "Loam", "Clayey"), \code{character}}
-\item{soil_depth_cm}{depth of soil tillage practise, \code{numeric}}}
+\itemize{
+\item \strong{crop}, The crop name to be sown, \code{character}
+\item \strong{expected_yield_kg_ha}, Expected crop yield, \code{numeric}
+\item \strong{texture}, Soil texture from (one of "Sandy", "Loam", "Clayey"), \code{character}
+\item \strong{soil_depth_cm}, depth of soil tillage practise, \code{numeric}
+}
 }
 \usage{
 templates_l

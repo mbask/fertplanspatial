@@ -46,66 +46,60 @@ ensure_as_template <- function(x, tpl) {
 #' Data templates for soil and vars
 #'
 #' @md
-#' @format A list of two elements, \code{soils_l} and \code{vars_l}. Both of
+#' @format A list of two elements, `soils_l` and `vars_l`. Both of
 #' them are lists of three elements each: \code{n}, \code{p}, \code{k}.
 #' Each nutrient element holds an empty table template that is used to ensure the data object
 #' passed as argument to [demand_nutrient()] function is correct as far as class of the
-#' entire object (eg \code{data.table}), name and class of each feature (column, eg \code{numeric},
-#' \code{character}) are concerned.
+#' entire object (eg \code{data.table}), name and class of each feature (column, eg `numeric`,
+#' `character`) are concerned.
 #'
-#' The data object are passed to appropriate \code{fertplan} functions by \code{demand_nutrient},
+#' The data object are passed to appropriate \code{fertplan} functions by [demand_nutrient()],
 #' further information on features (soil and vars), and their unit of measure can be found in
 #' help pages and vignettes of the \code{fertplan} package.
 #'
 #' Templates for **Nitrogen** nutrient:
 #'
-#' \code{soils_l}:
-#' \describe{
-#'   \item{N_pc}{Percentage of nitrogen in soil, \code{numeric}}
-#'   \item{CNR}{Soil carbon / nitrogen ratio, \code{numeric}}
-#'   \item{SOM_pc}{Soil Organic Matter percentage, \code{numeric}}
-#'   \item{Clay_pc}{Soil clay content, \code{numeric}}}
+#' `soils_l`:
+#'  * **N_pc**, Percentage of nitrogen in soil, `numeric`
+#'  * **CNR**, Soil carbon / nitrogen ratio, `numeric`
+#'  * **SOM_pc**, Soil Organic Matter percentage, `numeric`
+#'  * **Clay_pc**, Soil clay content, `numeric`
 #'
-#' \code{vars_l}:
-#' \describe{
-#'   \item{crop}{The crop name to be sown, \code{character}}
-#'   \item{crop_type}{The crop type to be sown, \code{character}}
-#'   \item{expected_yield_kg_ha}{Expected crop yield, \code{numeric}}
-#'   \item{prev_crop}{Soil clay content, \code{character}}
-#'   \item{texture}{Soil texture from (one of "Sandy", "Loam", "Clayey"), \code{character}}
-#'   \item{drainage_rate}{Rate of drainage in soil (either "fast", "normal", "slow", "no drainage"), \code{character}}
-#'   \item{oct_jan_2019_pr_mm}{cumulative precipitation in mm in the 4 months-period October - January, \code{numeric}}
-#'   \item{n_supply_prev_frt_kg_ha}{Supply from organic fertilizations, \code{numeric}}
-#'   \item{n_supply_atm_coeff}{A ratio to correct the N from atmosphere, \code{numeric}}}
+#' `vars_l`:
+#'  * **crop**, The crop name to be sown, `character`
+#'  * **crop_type**, The crop type to be sown, `character`
+#'  * **expected_yield_kg_ha**, Expected crop yield, `numeric`
+#'  * **prev_crop**, Soil clay content, `character`
+#'  * **texture**, Soil texture from (one of "Sandy", "Loam", "Clayey"), `character`
+#'  * **drainage_rate**, Rate of drainage in soil (either "fast", "normal", "slow", "no drainage"), `character`
+#'  * **oct_jan_2019_pr_mm**, cumulative precipitation in mm in the 4 months-period October - January, `numeric`
+#'  * **n_supply_prev_frt_kg_ha**, Supply from organic fertilizations, `numeric`
+#'  * **n_supply_atm_coeff**, A ratio to correct the N from atmosphere, `numeric`
 #'
 #' Templates for **Phosphorus** nutrient:
 #'
-#' \code{soils_l}:
-#' \describe{
-#'   \item{P_ppm}{Phosphorus in soil in ppm (mg/kg), \code{numeric}}
-#'   \item{Limestone_pc}{Calcium in soil in percentage, \code{numeric}}}
+#' `soils_l`:
+#'  * **P_ppm**, Phosphorus in soil in ppm (mg/kg), `numeric`
+#'  * **Limestone_pc**, Calcium in soil in percentage, `numeric`
 #'
-#' \code{vars_l}:
-#' \describe{
-#'   \item{crop}{The crop name to be sown, \code{character}}
-#'   \item{crop_B_P}{The class of crop to be sown, \code{character}}
-#'   \item{expected_yield_kg_ha}{Expected crop yield, \code{numeric}}
-#'   \item{texture}{Soil texture from (one of "Sandy", "Loam", "Clayey"), \code{character}}
-#'   \item{soil_depth_cm}{depth of soil tillage practise, \code{numeric}}}
+#' `vars_l`:
+#'  * **crop**, The crop name to be sown, `character`
+#'  * **crop_class**, The class of crop to be sown, `character`
+#'  * **expected_yield_kg_ha**, Expected crop yield, `numeric`
+#'  * **texture**, Soil texture from (one of "Sandy", "Loam", "Clayey"), `character`
+#'  * **soil_depth_cm**, depth of soil tillage practise, `numeric`
 #'
 #' Templates for **Potassium** nutrient:
 #'
-#' \code{soils_l}:
-#' \describe{
-#'   \item{K_ppm}{Potassium in soil in ppm (mg/kg), \code{numeric}}
-#'   \item{Clay_pc}{Soil clay content, \code{numeric}}}
+#' `soils_l`:
+#'  * **K_ppm**, Potassium in soil in ppm (mg/kg), `numeric`
+#'  * **Clay_pc**, Soil clay content, `numeric`
 #'
-#' \code{vars_l}:
-#' \describe{
-#'   \item{crop}{The crop name to be sown, \code{character}}
-#'   \item{expected_yield_kg_ha}{Expected crop yield, \code{numeric}}
-#'   \item{texture}{Soil texture from (one of "Sandy", "Loam", "Clayey"), \code{character}}
-#'   \item{soil_depth_cm}{depth of soil tillage practise, \code{numeric}}}
+#' `vars_l`:
+#'  * **crop**, The crop name to be sown, `character`
+#'  * **expected_yield_kg_ha**, Expected crop yield, `numeric`
+#'  * **texture**, Soil texture from (one of "Sandy", "Loam", "Clayey"), `character`
+#'  * **soil_depth_cm**, depth of soil tillage practise, `numeric`
 templates_l <- list(
   soils_l = list(
     n = data.table::data.table(
