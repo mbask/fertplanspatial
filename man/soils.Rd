@@ -5,11 +5,9 @@
 \alias{soils}
 \title{Soil physical and chemical analyses}
 \format{
-A soil samples \code{data.table} with 20 analyses (rows) and 13 features(columns):
+A soil samples \code{data.table} with 20 analyses (rows) and 9 features(columns):
 \itemize{
 \item \strong{id}: a simple id for each soil sample
-\item \strong{X}: longitude coordinate in WGS84 Pseudo-Mercator Coordinate Reference System
-\item \strong{Y}: latitude coordinate in WGS84 Pseudo-Mercator Coordinate Reference System
 \item \strong{N_pc}: nitrogen content in \%
 \item \strong{C_pc}: carbon content in \%
 \item \strong{CNR}: carbon / nitrogen ratio
@@ -34,8 +32,6 @@ and Agro-Food Processing of Monterotondo (Rome).
 }
 \details{
 The soil sample points are randomly spread over a 5 ha field previously cultivated on
-wheat followed by a few month-long fallow. Each sample point is spatially located
-in WGS84 Pseudo-Mercator coordinates (unit: metres) and uniquely identified
-through a numeric \code{id}. Soil samples were analyzed in October 2019.
+wheat followed by a few month-long fallow. Soil samples were analyzed in October 2019.
 }
 \keyword{datasets}

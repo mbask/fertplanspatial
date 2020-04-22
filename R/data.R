@@ -6,16 +6,12 @@
 #' and Agro-Food Processing of Monterotondo (Rome).
 #'
 #' The soil sample points are randomly spread over a 5 ha field previously cultivated on
-#' wheat followed by a few month-long fallow. Each sample point is spatially located
-#' in WGS84 Pseudo-Mercator coordinates (unit: metres) and uniquely identified
-#' through a numeric `id`. Soil samples were analyzed in October 2019.
+#' wheat followed by a few month-long fallow. Soil samples were analyzed in October 2019.
 #'
 #' @md
-#' @format A soil samples `data.table` with 20 analyses (rows) and 13 features(columns):
+#' @format A soil samples `data.table` with 20 analyses (rows) and 9 features(columns):
 #'
 #'  * **id**: a simple id for each soil sample
-#'  * **X**: longitude coordinate in WGS84 Pseudo-Mercator Coordinate Reference System
-#'  * **Y**: latitude coordinate in WGS84 Pseudo-Mercator Coordinate Reference System
 #'  * **N_pc**: nitrogen content in %
 #'  * **C_pc**: carbon content in %
 #'  * **CNR**: carbon / nitrogen ratio
@@ -27,3 +23,27 @@
 #'
 #' @source \url{https://www.journals.elsevier.com/european-journal-of-agronomy}
 "soils"
+
+#' Spatial soil nutrients fertilization
+#'
+#' A [sp::SpatialPointsDataFrame()] dataset containing the results
+#' of applying [demand_nutrient()] on \code{\link{soils}} dataset to get
+#' NPK fertilization plans.
+#'
+#' Each soil sample point is spatially located in WGS84 Pseudo-Mercator coordinates
+#' (epsg:3857, unit: metres) and uniquely identified through a numeric `id`.
+#'
+#' @md
+#' @format A soil sample points `data.table` with 20 sample points (rows)
+#' and 6 features(columns):
+#'
+#'  * **id**: a simple id for each soil sample point
+#'  * **X**: longitude coordinate in WGS84 Pseudo-Mercator Coordinate Reference System
+#'  * **Y**: latitude coordinate in WGS84 Pseudo-Mercator Coordinate Reference System
+#'  * **nitrogen**: estimate of nitrogen demand in kg/ha
+#'  * **phosphorus**: estimate of phosphorus (P_2O) demand in kg/ha
+#'  * **potassium**: estimate of potassium (K_2O_5) demand in kg/ha
+#'
+#' @source \url{https://www.journals.elsevier.com/european-journal-of-agronomy}
+#' @import sp
+"soils_spatial"
