@@ -3,7 +3,7 @@
 \docType{data}
 \name{soils_spatial}
 \alias{soils_spatial}
-\title{Spatial soil nutrients fertilization}
+\title{Spatial soil nutrients fertilization dataset}
 \format{
 A soil sample points \code{data.table} with 20 sample points (rows)
 and 6 features(columns):

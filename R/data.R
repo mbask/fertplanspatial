@@ -1,4 +1,4 @@
-#' Soil physical and chemical analyses
+#' Soil physical and chemical analyses dataset
 #'
 #' A dataset containing the results of physical and chemical analyses on 20
 #' samples of soil in a field located in the property of the Italian Council
@@ -24,7 +24,7 @@
 #' @source \url{https://www.journals.elsevier.com/european-journal-of-agronomy}
 "soils"
 
-#' Spatial soil nutrients fertilization
+#' Spatial soil nutrients fertilization dataset
 #'
 #' A [sp::SpatialPointsDataFrame()] dataset containing the results
 #' of applying [demand_nutrient()] on \code{\link{soils}} dataset to get
@@ -45,5 +45,4 @@
 #'  * **potassium**: estimate of potassium (K_2O_5) demand in kg/ha
 #'
 #' @source \url{https://www.journals.elsevier.com/european-journal-of-agronomy}
-#' @import sp
 "soils_spatial"

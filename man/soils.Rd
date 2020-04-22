@@ -3,7 +3,7 @@
 \docType{data}
 \name{soils}
 \alias{soils}
-\title{Soil physical and chemical analyses}
+\title{Soil physical and chemical analyses dataset}
 \format{
 A soil samples \code{data.table} with 20 analyses (rows) and 9 features(columns):
 \itemize{
