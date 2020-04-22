@@ -1,4 +1,4 @@
-Vignette Title
+Introduction to `fertplanspatial` R package
 ================
 
 ## Description
@@ -65,7 +65,7 @@ soil_vars <- list(
   crop_type            = "Girasole",  # to be looked up in table 15.3 (page 67)
   prev_crop            = "Prati: polifita con meno del 5%", # to be looked up in table 5 (page 24)
   drainage_rate        = "slow", # to be looked up in table 4 (page 23)
-  oct_jan_2019_pr_mm   = 350,
+  oct_jan_pr_mm        = 350, # Rainfall between October 2018 and January 2019
   n_supply_prev_frt_kg_ha = 0,
   n_supply_atm_coeff   = 1,
 
