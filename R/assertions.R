@@ -121,7 +121,7 @@ templates_l <- list(
       prev_crop               = character(0),
       texture                 = character(0),
       drainage_rate           = character(),
-      oct_jan_2019_pr_mm      = numeric(0),
+      oct_jan_pr_mm           = numeric(0),
       n_supply_prev_frt_kg_ha = numeric(0),
       n_supply_atm_coeff      = numeric(0)),
     p = data.table::data.table(
