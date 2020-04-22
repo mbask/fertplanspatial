@@ -5,20 +5,25 @@
 #' for Agricultural Research and Economica, Research Centre for Engineering
 #' and Agro-Food Processing of Monterotondo (Rome).
 #'
+#' The soil sample points are randomly spread over a 5 ha field previously cultivated on
+#' wheat followed by a few month-long fallow. Each sample point is spatially located
+#' in WGS84 Pseudo-Mercator coordinates (unit: metres) and uniquely identified
+#' through a numeric `id`. Soil samples were analyzed in October 2019.
 #'
-#' @format A data table with 20 analyses (rows) and 13 features(columns):
-#' \describe{
-#'   \item{id}{}
-#'   \item{X}{}
-#'   \item{Y}{}
-#'   \item{N_pc}{}
-#'   \item{C_pc}{}
-#'   \item{CNR}{}
-#'   \item{SOM_pc}{}
-#'   \item{P_ppm}{}
-#'   \item{K_ppm}{}
-#'   \item{Limestone_pc}{}
-#'   \item{Clay_pc}{}
-#' }
+#' @md
+#' @format A soil samples `data.table` with 20 analyses (rows) and 13 features(columns):
+#'
+#'  * **id**: a simple id for each soil sample
+#'  * **X**: longitude coordinate in WGS84 Pseudo-Mercator Coordinate Reference System
+#'  * **Y**: latitude coordinate in WGS84 Pseudo-Mercator Coordinate Reference System
+#'  * **N_pc**: nitrogen content in %
+#'  * **C_pc**: carbon content in %
+#'  * **CNR**: carbon / nitrogen ratio
+#'  * **SOM_pc**: soil organic matter in %
+#'  * **P_ppm**: phosphorus content in ppm (mg/kg)
+#'  * **K_ppm**: potassium content in ppm (mg/kg)
+#'  * **Limestone_pc**: calcium (Ca) content in %
+#'  * **Clay_pc**: clay content in %
+#'
 #' @source \url{https://www.journals.elsevier.com/european-journal-of-agronomy}
 "soils"

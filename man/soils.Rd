@@ -5,19 +5,19 @@
 \alias{soils}
 \title{Soil physical and chemical analyses}
 \format{
-A data table with 20 analyses (rows) and 13 features(columns):
-\describe{
-  \item{id}{}
-  \item{X}{}
-  \item{Y}{}
-  \item{N_pc}{}
-  \item{C_pc}{}
-  \item{CNR}{}
-  \item{SOM_pc}{}
-  \item{P_ppm}{}
-  \item{K_ppm}{}
-  \item{Limestone_pc}{}
-  \item{Clay_pc}{}
+A soil samples \code{data.table} with 20 analyses (rows) and 13 features(columns):
+\itemize{
+\item \strong{id}: a simple id for each soil sample
+\item \strong{X}: longitude coordinate in WGS84 Pseudo-Mercator Coordinate Reference System
+\item \strong{Y}: latitude coordinate in WGS84 Pseudo-Mercator Coordinate Reference System
+\item \strong{N_pc}: nitrogen content in \%
+\item \strong{C_pc}: carbon content in \%
+\item \strong{CNR}: carbon / nitrogen ratio
+\item \strong{SOM_pc}: soil organic matter in \%
+\item \strong{P_ppm}: phosphorus content in ppm (mg/kg)
+\item \strong{K_ppm}: potassium content in ppm (mg/kg)
+\item \strong{Limestone_pc}: calcium (Ca) content in \%
+\item \strong{Clay_pc}: clay content in \%
 }
 }
 \source{
@@ -31,5 +31,11 @@ A dataset containing the results of physical and chemical analyses on 20
 samples of soil in a field located in the property of the Italian Council
 for Agricultural Research and Economica, Research Centre for Engineering
 and Agro-Food Processing of Monterotondo (Rome).
+}
+\details{
+The soil sample points are randomly spread over a 5 ha field previously cultivated on
+wheat followed by a few month-long fallow. Each sample point is spatially located
+in WGS84 Pseudo-Mercator coordinates (unit: metres) and uniquely identified
+through a numeric \code{id}. Soil samples were analyzed in October 2019.
 }
 \keyword{datasets}

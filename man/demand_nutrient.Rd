@@ -103,6 +103,8 @@ Environmental features needed for \strong{potassium} nutrient:
 \item \strong{soil_depth_cm}, depth of soil tillage practise in cm, usually 30 or 40 cm
 }
 
+A real soil samples \code{data.table} is available as package dataset \code{\link{soils}}.
+
 More informations on soil properties and other variables related to the
 crop and the environment can be found in \code{\link{templates_l}},
 in package \href{http://github.com/mbask/fertplan}{fertplan} help pages, and in vignettes and in the
