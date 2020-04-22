@@ -12,6 +12,9 @@ LazyData: true
 Depends: 
     fertplan,
     data.table,
-    ensurer,
-    sp
+    ensurer
+Imports:
+    sp,
+    gstat,
+    automap
 RoxygenNote: 7.1.0

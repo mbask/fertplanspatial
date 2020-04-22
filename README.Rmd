@@ -69,13 +69,38 @@ soil_vars <- list(
   
   # Additional vars for phosphorus
   crop_class           = "Girasole") # to be looked up in table 10 (page 32)
-
 ```
 
 
 ```{r}
 nutrient_dt <- demand_nutrient(soils, soil_vars, c("all"))
 print(nutrient_dt)
+```
+
+```{r}
+data("soils_spatial")
+knitr::kable(soils)
+```
+
+```{r}
+spatials_l <- spatial_nutrient(soils_spatial, 10)
+
+
+library(ggplot2)
+
+ggplot(as.data.frame(spatials_l$k), aes(x = X, y = Y)) +
+  geom_tile(aes(fill = var1.pred)) +
+  geom_point(data = as.data.frame(soils_spatial)) +
+  coord_equal() +
+  scale_fill_distiller(palette = "Spectral") +
+  labs(title = "N fertilization plan", fill = "Concentration\n(kg/ha)") +
+  theme_bw()
+
+# # coerce to SpatialPixelsDataFrame
+# kriges_spdf_l <- lapply(spatials_l, function(spg) { sp::gridded(spg) <- TRUE; spg })
+# krige_rs      <- raster::stack(lapply(kriges_spdf_l, raster::raster))
+# plot(krige_rs)
+
 ```
 
 
