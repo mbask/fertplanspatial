@@ -1,4 +1,4 @@
-# Title
+# Compute potassium demand
 #
 # This is an internal function not meant to be used by the end-user
 # as no checks are performed on its arguments
