@@ -18,10 +18,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-options(warn = -1)
 library(data.table)
-library(ggplot2)
-library(raster)
 library(fertplanspatial)
 ```
 
@@ -43,69 +40,9 @@ devtools::install_github("mbask/fertplanspatial")
 ```
 
 
-## Usage
-
-```{r}
-data(soils)
-knitr::kable(soils)
+```{r, results='asis', echo = FALSE}
+res <- knitr::knit_child('vignettes/fertplanspatial_usage.Rmd', quiet = TRUE)
+cat(res, sep = '\n')
 ```
-
-
-
-```{r}
-soil_vars <- list(
-  # Common vars among nitrogen, phosphorus, and potassium
-  crop                 = "Girasole", # to be looked up in table 15.2 (page 63)
-  expected_yield_kg_ha = 1330,
-  texture              = "Loam", # to be chosen among Sandy, Loam, Clayey
-  
-  # Additional vars for nitrogen
-  crop_type            = "Girasole",  # to be looked up in table 15.3 (page 67)
-  prev_crop            = "Prati: polifita con meno del 5%", # to be looked up in table 5 (page 24)
-  drainage_rate        = "slow", # to be looked up in table 4 (page 23)
-  oct_jan_pr_mm        = 350, # Rainfall between October 2018 and January 2019
-  n_supply_prev_frt_kg_ha = 0,
-  n_supply_atm_coeff   = 1,
-
-  # Common vars among phosphorus and potassium
-  soil_depth_cm        = 30,
-  
-  # Additional vars for phosphorus
-  crop_class           = "Girasole") # to be looked up in table 10 (page 32)
-```
-
-
-```{r}
-nutrient_dt <- demand_nutrient(soils, soil_vars, c("all"))
-print(nutrient_dt)
-```
-
-```{r}
-data("soils_spatial")
-knitr::kable(soils)
-```
-
-```{r}
-spatials_l <- spatial_nutrient(soils_spatial, spat_res = 10)
-
-
-
-
-ggplot(as.data.frame(spatials_l$n), aes(x = X, y = Y)) +
-  geom_tile(aes(fill = var1.pred)) +
-  geom_point(data = as.data.frame(soils_spatial)) +
-  coord_equal() +
-  scale_fill_distiller(palette = "Spectral") +
-  labs(title = "N fertilization plan", fill = "Concentration\n(kg/ha)") +
-  theme_bw()
-```
-
-```{r}
-# coerce to SpatialPixelsDataFrame
-kriges_spdf_l <- lapply(spatials_l, function(spg) { sp::gridded(spg) <- TRUE; spg })
-krige_rs      <- raster::stack(lapply(kriges_spdf_l, raster::raster))
-plot(krige_rs)
-```
-
 
 ## References
