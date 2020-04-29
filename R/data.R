@@ -9,7 +9,7 @@
 #' wheat followed by a few month-long fallow. Soil samples were analyzed in October 2019.
 #'
 #' @md
-#' @format A soil samples `data.table` with 20 analyses (rows) and 9 features(columns):
+#' @format A soil samples `data.table` with 20 soil samples (rows) and 9 features (columns):
 #'
 #'  * **id**: a simple id for each soil sample
 #'  * **N_pc**: nitrogen content in %

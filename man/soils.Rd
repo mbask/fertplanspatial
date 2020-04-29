@@ -5,7 +5,7 @@
 \alias{soils}
 \title{Soil physical and chemical analyses dataset}
 \format{
-A soil samples \code{data.table} with 20 analyses (rows) and 9 features(columns):
+A soil samples \code{data.table} with 20 soil samples (rows) and 9 features (columns):
 \itemize{
 \item \strong{id}: a simple id for each soil sample
 \item \strong{N_pc}: nitrogen content in \%
