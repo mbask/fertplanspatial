@@ -9,7 +9,8 @@ spatial_nutrient(
   model = "auto",
   grid_spdf = NULL,
   spat_res = 5,
-  nutrient = "all"
+  nutrient = "all",
+  ...
 )
 }
 \arguments{
@@ -17,7 +18,9 @@ spatial_nutrient(
 
 \item{model}{a character vector describing the variogram model type.
 Either "auto" or one of the available variogram models to \code{\link[gstat:vgm]{gstat::vgm()}},
-e.g. "Exp", "Sph", "Gau", "Mat". In "auto" the optimal variogram
+e.g. "Exp", "Sph", "Gau", "Mat". Specific model parameters may be passed
+to \code{\link[gstat:vgm]{gstat::vgm()}} as named function arguments arguments.
+In "auto" the optimal variogram
 is chosen by \code{\link[automap:autofitVariogram]{automap::autofitVariogram()}}. Calling gstat::vgm() without a model
 argument returns a data.frame with available models.}
 
@@ -32,6 +35,8 @@ of the resulting spatial grid when \code{grid_spdf} is \code{NULL}. Default is 5
 spatialized fertilization plan to compute among "nitrogen",
 "phosphorus", and "potassium". Any combination of the three
 nutrients can be given or "all" (default) to compute all of them.}
+
+\item{...}{arguments that will be passed to \code{\link[gstat:vgm]{gstat::vgm()}}}
 }
 \value{
 a list with as many elements as nutrients given as \code{nutrient}

@@ -5,7 +5,7 @@
 # @param model
 #
 # @return
-variogram_nutrient <- function(formula, sp_df, model) `: variogram_list` ({
+variogram_nutrient <- function(formula, sp_df, model, ...) `: variogram_list` ({
 
   # calculates sample variogram values
   n_values <- gstat::variogram(formula, sp_df)
@@ -16,7 +16,7 @@ variogram_nutrient <- function(formula, sp_df, model) `: variogram_list` ({
       input_data = sp_df,
       alpha      = seq(0, 359, 15))$var_model
   } else {
-    n_model <- gstat::vgm(model)
+    n_model <- gstat::vgm(model, ...)
   }
 
   n_fit <- gstat::fit.variogram(object = n_values, model = n_model)

@@ -16,7 +16,9 @@
 #' @param sp_df    a Spatial soil nutrients fertilization dataset
 #' @param model    a character vector describing the variogram model type.
 #'   Either "auto" or one of the available variogram models to [gstat::vgm()],
-#'   e.g. "Exp", "Sph", "Gau", "Mat". In "auto" the optimal variogram
+#'   e.g. "Exp", "Sph", "Gau", "Mat". Specific model parameters may be passed
+#'   to [gstat::vgm()] as named function arguments arguments.
+#'   In "auto" the optimal variogram
 #'   is chosen by [automap::autofitVariogram()]. Calling gstat::vgm() without a model
 #'   argument returns a data.frame with available models.
 #' @param grid_spdf a [sp::SpatialPoints()] object grid with nutrient predictions
@@ -28,6 +30,7 @@
 #'   spatialized fertilization plan to compute among "nitrogen",
 #'   "phosphorus", and "potassium". Any combination of the three
 #'   nutrients can be given or "all" (default) to compute all of them.
+#' @param ... arguments that will be passed to [gstat::vgm()]
 #'
 #' @md
 #' @return a list with as many elements as nutrients given as `nutrient`
@@ -42,13 +45,14 @@
 #' @importFrom gstat    variogram
 #' @importFrom gstat    fit.variogram
 #' @importFrom automap  autofitVariogram
-spatial_nutrient <- function(sp_df, model = "auto", grid_spdf = NULL, spat_res = 5, nutrient = "all") `: spdf_list` ({
+spatial_nutrient <- function(sp_df, model = "auto", grid_spdf = NULL, spat_res = 5, nutrient = "all", ...) `: spdf_list` ({
 
   variogram_kriging <- function(formula) {
     variogram_n <- variogram_nutrient(
       formula,
       sp_df,
-      model)
+      model,
+      ...)
     gstat::krige(
       formula,
       locations = sp_df,
