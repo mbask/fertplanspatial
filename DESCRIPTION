@@ -1,20 +1,30 @@
 Package: fertplanspatial
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Compute And Spatialize NPK Fertilization Plans
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Authors@R: c(person("Marco", "Bascietto", role = c("aut", "cre"),
+                     email = "marco.bascietto@crea.gov.it"))
+Description: From physical and chemical analyses of soil samples to spatialized 
+    fertilization plans for field crops: build spatial maps of nutrient 
+    deficiencies to support farmers and professionals in precise distribution 
+    of N,P,K-based fertilizers.
 License: GPL-3
+URL: https://github.com/mbask/fertplanspatial
+BugReports: https://github.com/mbask/fertplanspatial/issues
 Encoding: UTF-8
 LazyData: true
 Depends: 
     fertplan,
     data.table,
-    ensurer
+    ensurer,
+    R (>= 3.5.0)
 Imports:
     sp,
     gstat,
     automap
+Suggests: 
+    tinytest,
+    knitr,
+    rmarkdown
 RoxygenNote: 7.1.0
+VignetteBuilder: knitr
