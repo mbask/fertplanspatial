@@ -86,7 +86,7 @@ spatial_nutrient <- function(sp_df, model = "auto", grid_spdf = NULL, spat_res =
 
   # check grid is fine
   is_sp(grid_spdf)
-  if (sp::proj4string(grid_spdf) !=  sp::proj4string(sp_df)) {
+  if (is.na(sp::proj4string(grid_spdf)) | sp::proj4string(grid_spdf) !=  sp::proj4string(sp_df)) {
     warning("CRS of grid does not match CRS of nutrient spatial soil dataset; setting the latter CRS on the former.")
     sp::proj4string(grid_spdf) <- sp::proj4string(sp_df)
   }
@@ -112,6 +112,9 @@ spatial_nutrient <- function(sp_df, model = "auto", grid_spdf = NULL, spat_res =
     formula = formula(potassium ~ 1)
     is_formula(formula)
     spatial_l$k <- variogram_kriging(formula)
+  }
+  if (length(spatial_l) == 0) {
+    warning("No nutrient plan spatialised. Returning an empty list...")
   }
   spatial_l
 })
