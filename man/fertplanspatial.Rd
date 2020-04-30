@@ -5,6 +5,11 @@
 \alias{fertplanspatial}
 \title{fertplanspatial package}
 \description{
+The goal of the package is to define fertilization plans for the fields
+of a farm and spatialize them. Fertilization plans rely on R package
+`fertplan` to perform the raw computations.
+}
+\details{
 It strictly follows the regulation for integrated crop production
 published by the administrative authority of Lazio region, Italy.
 Assessorato Agricoltura, Promozione della Filiera e della Cultura del

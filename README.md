@@ -5,12 +5,12 @@ Introduction to `fertplanspatial` R package
 
 The goal of the package is to define fertilization plans for the fields
 of a farm and spatialize them. Fertilization plans in the Lazio region
-territory have to follow these agronomic guidelines with specific
+territory have to follow the agronomic guidelines with specific
 attention to [attachment no.
 2](http://www.regione.lazio.it/binary/rl_main/tbl_documenti/AGC_DD_G01782_24_02_2020_Allegato1.pdf "PDF file of the Attachment 2 of the guidelines")
 (Assessorato Agricoltura, Promozione della Filiera e della Cultura del
-Cibo, Ambiente e Risorse Naturali 2020) and relies on R package
-`fertplan` to perform the raw computations.
+Cibo, Ambiente e Risorse Naturali 2020) and rely on R package `fertplan`
+to perform the raw computations.
 
 ## Installation
 
@@ -219,6 +219,7 @@ bounding box, with a 10 metres spatial resolution:
 
 ``` r
 spatials_l <- spatial_nutrient(soils_spatial, spat_res = 10)
+#> [1] "+init=epsg:3857 +proj=merc +a=6378137 +b=6378137 +lat_ts=0 +lon_0=0 +x_0=0 +y_0=0 +k=1 +units=m +nadgrids=@null +no_defs"
 #> [using ordinary kriging]
 #> [using ordinary kriging]
 #> [using ordinary kriging]
