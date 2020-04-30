@@ -96,6 +96,7 @@
 #'   given as `soil_dt` parameter.
 #' @md
 #' @export
+#' @importFrom ensurer ensure
 #' @importFrom ensurer ensure_that
 #' @importFrom data.table setDT
 #' @importFrom data.table data.table
@@ -107,7 +108,7 @@
 #'   \url{http://www.regione.lazio.it/rl_agricoltura/?vw=documentazioneDettaglio&id=52065}.
 demand_nutrient <- function(soil_dt, vars, nutrient = "all") `: dt` ({
 
-  ensurer::ensures_that(soil_dt, is.data.frame(.) ~ "not a proper table.")
+  ensurer::ensure(soil_dt, +is_df, +are_obs_in_table)
   is_list(vars)
   is_character(nutrient)
 
@@ -163,5 +164,11 @@ demand_nutrient <- function(soil_dt, vars, nutrient = "all") `: dt` ({
     potassium <- NULL
     ntrt_results_dt[, potassium := demand_potassium(cbind(soil_k_dt, vars_k_dt))]
   }
-  ntrt_results_dt
+
+  if (ncol(ntrt_results_dt) == 0) {
+    warning("No nutrient demand to compute. Returning a null data.table...")
+    ntrt_results_dt
+  } else {
+    are_obs_in_table(ntrt_results_dt)
+  }
 })

@@ -10,6 +10,10 @@ is_list <-
 is_numeric <-
   ensurer::ensures_that(is.numeric(.) ~ "vector must be of numeric type.")
 
+is_df <-
+  ensurer::ensures_that(is.data.frame(.) ~ "table must be a proper data.frame object.")
+
+
 is_spdf <-
   ensurer::ensures_that("SpatialPointsDataFrame" %in% class(.) ~ "table must be of SpatialPointsDataFrame class from package sp.")
 
@@ -47,6 +51,8 @@ is_positive <-
 is_in_variogram_models <-
   ensurer::ensures_that(. %in% c("auto", as.character(gstat::vgm()$short)) ~ "variogram model not found.")
 
+are_obs_in_table <-
+  ensurer::ensures_that(nrow(.) > 0 ~ "table has no observations.")
 
 # Ensure a table conforms to a table template
 #
