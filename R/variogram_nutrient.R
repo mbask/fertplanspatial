@@ -14,7 +14,7 @@ variogram_nutrient <- function(formula, sp_df, model, ...) `: variogram_list` ({
     n_model <- automap::autofitVariogram(
       formula    = formula,
       input_data = sp_df,
-      alpha      = seq(0, 359, 15))$var_model
+      ...)$var_model
   } else {
     n_model <- gstat::vgm(model, ...)
   }

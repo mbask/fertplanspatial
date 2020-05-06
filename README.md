@@ -219,7 +219,6 @@ bounding box, with a 10 metres spatial resolution:
 
 ``` r
 spatials_l <- spatial_nutrient(soils_spatial, spat_res = 10)
-#> [1] "+init=epsg:3857 +proj=merc +a=6378137 +b=6378137 +lat_ts=0 +lon_0=0 +x_0=0 +y_0=0 +k=1 +units=m +nadgrids=@null +no_defs"
 #> [using ordinary kriging]
 #> [using ordinary kriging]
 #> [using ordinary kriging]
@@ -246,15 +245,37 @@ A rough interpretation of the plans clearly suggests that there is a
 need for a light fertilization by phosphorus, that potassium is in great
 excess and nitrogen is more than enough for the successive crop.
 
-The fertilization plan can be easily converted into a raster stack and
-saved as GeoTIFF image for further GIS elaboration:
+For a greater flexibility the variogram step of the spatialization
+process can be specifically tailored to use a specific function among
+\[gstat::vgm()\] (controlled by argument `model` set to a specific `vgm`
+model) and \[automap::autofitVariogram()\] (controlled by argument
+`model = auto`). Further arguments can be passed to either functions:
 
 ``` r
+spatials_l <- c(
+  spatial_nutrient(soils_spatial, model = "auto", spat_res = 10, nutrient = "nitrogen", alpha = seq(0, 359, 15)),
+  spatial_nutrient(soils_spatial, model = "Ste",  spat_res = 10, nutrient = "phosphorus"),
+  spatial_nutrient(soils_spatial, model = "auto", spat_res = 10, nutrient = "potassium", alpha = seq(0, 359, 30)))
+#> [using ordinary kriging]
+#> [using ordinary kriging]
+#> [using ordinary kriging]
+last_plot() %+% as.data.frame(spatials_l$p) %+% labs(title = "N fertilization plan")
+last_plot() %+% as.data.frame(spatials_l$p) %+% labs(title = "P fertilization plan")
+last_plot() %+% as.data.frame(spatials_l$k) %+% labs(title = "K fertilization plan")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)![](README_files/figure-gfm/unnamed-chunk-9-2.png)![](README_files/figure-gfm/unnamed-chunk-9-3.png)
+
+```` 
+
+The fertilization plan can be easily converted into a raster stack and saved as GeoTIFF image for further GIS elaboration:
+
+```r
 # coerce to SpatialPixelsDataFrame
 kriges_spdf_l <- lapply(spatials_l, function(spg) { sp::gridded(spg) <- TRUE; spg })
 krige_rs      <- raster::stack(lapply(kriges_spdf_l, raster::raster))
 raster::writeRaster(krige_rs, "npk_fert_plans.tif", format = "GTiff")
-```
+````
 
 ## References
 

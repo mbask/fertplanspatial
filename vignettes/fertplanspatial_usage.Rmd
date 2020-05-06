@@ -124,6 +124,20 @@ last_plot() %+% as.data.frame(spatials_l$k) %+% labs(title = "K fertilization pl
 A rough interpretation of the plans clearly suggests that there is a need for a light fertilization by phosphorus, that potassium is in great excess and nitrogen is more than enough for the successive crop.
 
 
+For a greater flexibility the variogram step of the spatialization process can be specifically tailored to use a specific function among [gstat::vgm()] (controlled by argument `model` set to a specific `vgm` model) and [automap::autofitVariogram()] (controlled by argument `model = auto`). Further arguments can be passed to either functions:
+
+```{r, fig.width = 7, fig.show='hold'}
+spatials_l <- c(
+  spatial_nutrient(soils_spatial, model = "auto", spat_res = 10, nutrient = "nitrogen", alpha = seq(0, 359, 15)),
+  spatial_nutrient(soils_spatial, model = "Ste",  spat_res = 10, nutrient = "phosphorus"),
+  spatial_nutrient(soils_spatial, model = "auto", spat_res = 10, nutrient = "potassium", alpha = seq(0, 359, 30)))
+last_plot() %+% as.data.frame(spatials_l$p) %+% labs(title = "N fertilization plan")
+last_plot() %+% as.data.frame(spatials_l$p) %+% labs(title = "P fertilization plan")
+last_plot() %+% as.data.frame(spatials_l$k) %+% labs(title = "K fertilization plan")
+```
+
+```
+
 The fertilization plan can be easily converted into a raster stack and saved as GeoTIFF image for further GIS elaboration:
 
 ```{r, eval=FALSE}
