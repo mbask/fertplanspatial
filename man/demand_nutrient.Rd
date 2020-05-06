@@ -78,7 +78,7 @@ Environmental features needed for \strong{nitrogen} nutrient:
 \item \strong{crop}, The crop name to be sown, to be looked up in table 15.2 (page 63 of the guidelines)
 \item \strong{crop_type}, The crop type to be sown,  to be looked up in table 15.3 (page 67)
 \item \strong{expected_yield_kg_ha}, Expected crop yield in kg/ha
-\item \strong{prev_crop}, Soil clay content, to be looked up in table 5 (page 24)
+\item \strong{prev_crop}, name or type of the previous crop, to be looked up in table 5 (page 24)
 \item \strong{texture}, Soil texture from (one of "Sandy", "Loam", "Clayey")
 \item \strong{drainage_rate}, Rate of drainage in soil (either "fast", "normal", "slow", "no drainage")
 \item \strong{oct_jan_pr_mm}, cumulative precipitation in mm in the 4 months-period October - January
