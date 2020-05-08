@@ -106,7 +106,7 @@ ensure_as_template <- function(x, tpl) {
 #'  * **prev_crop**, Soil clay content, `character`
 #'  * **texture**, Soil texture from (one of "Sandy", "Loam", "Clayey"), `character`
 #'  * **drainage_rate**, Rate of drainage in soil (either "fast", "normal", "slow", "no drainage"), `character`
-#'  * **oct_jan_2019_pr_mm**, cumulative precipitation in mm in the 4 months-period October - January, `numeric`
+#'  * **oct_jan_pr_mm**, cumulative precipitation in mm in the 4 months-period October - January, `numeric`
 #'  * **n_supply_prev_frt_kg_ha**, Supply from organic fertilizations, `numeric`
 #'  * **n_supply_atm_coeff**, A ratio to correct the N from atmosphere, `numeric`
 #'
