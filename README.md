@@ -104,7 +104,7 @@ They can be easily stored in a `R` list:
 soil_vars <- list(
   # Common vars among nitrogen, phosphorus, and potassium
   crop                 = "Girasole", # Sunflower, to be looked up in table 15.2 (page 63)
-  expected_yield_kg_ha = 1330,
+  expected_yield_kg_ha = 1330L,
   texture              = "Loam", # to be chosen among Sandy, Loam, Clayey
   
   # Additional vars for nitrogen
@@ -113,14 +113,16 @@ soil_vars <- list(
   crop_type            = "Girasole",
   # Mixed grassland, less than 5% fabaceae; to be looked up in table 5 (page 24)
   prev_crop            = "Prati: polifita con meno del 5%", 
-  drainage_rate        = "slow", # to be looked up in table 4 (page 23)
-  oct_jan_pr_mm        = 350, # Rainfall between October 2018 and January 2019 in mm
-  n_supply_prev_frt_kg_ha = 0,
+  # to be looked up in table 4 (page 23)
+  drainage_rate        = "slow",
+  # Rainfall between October and January in mm
+  oct_jan_pr_mm        = 350L,
+  n_supply_prev_frt_kg_ha = 0L,
   n_supply_atm_coeff   = 1,
 
   # Common vars among phosphorus and potassium
   # Depth of tilled soil in cm
-  soil_depth_cm        = 30,
+  soil_depth_cm        = 30L,
   
   # Additional vars for phosphorus
   crop_class           = "Girasole") # Sunflower, to be looked up in table 10 (page 32)

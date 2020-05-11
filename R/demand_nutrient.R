@@ -118,6 +118,7 @@ demand_nutrient <- function(soil_dt, vars, nutrient = "all") `: dt` ({
 
   # setup variables and return table
   # for computing nutrient fertilization concentrations
+
   data.table::setDT(vars)
   ntrt_results_dt <- data.table::data.table()
   # prevent "no visible binding for global variable" NOTE
@@ -132,7 +133,7 @@ demand_nutrient <- function(soil_dt, vars, nutrient = "all") `: dt` ({
     # insert optional arguments when n_supply_prev_frt_kg_ha is 0
     n_supply_prev_frt_kg_ha <- years_ago <- organic_fertilizer <- NULL
     if (vars[, n_supply_prev_frt_kg_ha] == 0) {
-      vars[, years_ago := 0][, organic_fertilizer := ""]
+      vars[, years_ago := 0L][, organic_fertilizer := ""]
     }
     vars_col_names <- names(templates_l$vars_l$n)
     vars_n_dt      <- vars[, .SD, .SDcols = vars_col_names]

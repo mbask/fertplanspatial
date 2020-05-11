@@ -102,12 +102,14 @@ ensure_as_template <- function(x, tpl) {
 #' `vars_l`:
 #'  * **crop**, The crop name to be sown, `character`
 #'  * **crop_type**, The crop type to be sown, `character`
-#'  * **expected_yield_kg_ha**, Expected crop yield, `numeric`
+#'  * **expected_yield_kg_ha**, Expected crop yield, `integer`
 #'  * **prev_crop**, Soil clay content, `character`
 #'  * **texture**, Soil texture from (one of "Sandy", "Loam", "Clayey"), `character`
 #'  * **drainage_rate**, Rate of drainage in soil (either "fast", "normal", "slow", "no drainage"), `character`
-#'  * **oct_jan_pr_mm**, cumulative precipitation in mm in the 4 months-period October - January, `numeric`
-#'  * **n_supply_prev_frt_kg_ha**, Supply from organic fertilizations, `numeric`
+#'  * **oct_jan_pr_mm**, cumulative precipitation in mm in the 4 months-period October - January, `integer`
+#'  * **n_supply_prev_frt_kg_ha**, Supply from organic fertilizations, `integer`
+#'  * **organic_fertilizer**, Type of organic fertilizer used, `character`
+#'  * **years_ago** * Time since last organic fertilization, `integer`
 #'  * **n_supply_atm_coeff**, A ratio to correct the N from atmosphere, `numeric`
 #'
 #' Templates for **Phosphorus** nutrient:
@@ -119,9 +121,9 @@ ensure_as_template <- function(x, tpl) {
 #' `vars_l`:
 #'  * **crop**, The crop name to be sown, `character`
 #'  * **crop_class**, The class of crop to be sown, `character`
-#'  * **expected_yield_kg_ha**, Expected crop yield, `numeric`
+#'  * **expected_yield_kg_ha**, Expected crop yield, `integer`
 #'  * **texture**, Soil texture from (one of "Sandy", "Loam", "Clayey"), `character`
-#'  * **soil_depth_cm**, depth of soil tillage practise, `numeric`
+#'  * **soil_depth_cm**, depth of soil tillage practise, `integer`
 #'
 #' Templates for **Potassium** nutrient:
 #'
@@ -131,9 +133,9 @@ ensure_as_template <- function(x, tpl) {
 #'
 #' `vars_l`:
 #'  * **crop**, The crop name to be sown, `character`
-#'  * **expected_yield_kg_ha**, Expected crop yield, `numeric`
+#'  * **expected_yield_kg_ha**, Expected crop yield, `integer`
 #'  * **texture**, Soil texture from (one of "Sandy", "Loam", "Clayey"), `character`
-#'  * **soil_depth_cm**, depth of soil tillage practise, `numeric`
+#'  * **soil_depth_cm**, depth of soil tillage practise, `integer`
 templates_l <- list(
   soils_l = list(
     n = data.table::data.table(
@@ -151,24 +153,26 @@ templates_l <- list(
     n = data.table::data.table(
       crop                    = character(0),
       crop_type               = character(0),
-      expected_yield_kg_ha    = numeric(0),
+      expected_yield_kg_ha    = integer(0),
       prev_crop               = character(0),
       texture                 = character(0),
       drainage_rate           = character(),
-      oct_jan_pr_mm           = numeric(0),
-      n_supply_prev_frt_kg_ha = numeric(0),
+      oct_jan_pr_mm           = integer(0),
+      n_supply_prev_frt_kg_ha = integer(0),
+      organic_fertilizer      = character(0),
+      years_ago               = integer(0),
       n_supply_atm_coeff      = numeric(0)),
     p = data.table::data.table(
       crop                 = character(0),
       crop_class           = character(0),
-      expected_yield_kg_ha = numeric(0),
+      expected_yield_kg_ha = integer(0),
       texture              = character(0),
-      soil_depth_cm        = numeric(0)),
+      soil_depth_cm        = integer(0)),
     k = data.table::data.table(
       crop                 = character(0),
-      expected_yield_kg_ha = numeric(0),
+      expected_yield_kg_ha = integer(0),
       texture              = character(0),
-      soil_depth_cm        = numeric(0))))
+      soil_depth_cm        = integer(0))))
 
 
 
