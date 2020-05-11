@@ -75,7 +75,8 @@
 #' A real soil samples `data.table` is available as package dataset \code{\link{soils}}.
 #'
 #' More informations on soil properties and other variables related to the
-#'  crop and the environment can be found in \code{\link{templates_l}},
+#'  crop and the environment can be found in the documentation of the
+#'  [check_soil_table()] and [check_vars()] functions,
 #'  in package [fertplan](http://github.com/mbask/fertplan) help pages, and in vignettes and in the
 #'  guideline of Region Lazio.
 #'
@@ -119,25 +120,21 @@ demand_nutrient <- function(soil_dt, vars, nutrient = "all") `: dt` ({
   # setup variables and return table
   # for computing nutrient fertilization concentrations
 
-  data.table::setDT(vars)
   ntrt_results_dt <- data.table::data.table()
-  # prevent "no visible binding for global variable" NOTE
-  .SD <- .SDcols <- NULL
+  .SD <- NULL
 
   # nitrogen
   if ("nitrogen" %in% nutrient) {
-    tbl_col_names <- names(templates_l$soils_l$n)
-    soil_n_dt     <- soil_dt[, .SD, .SDcols = tbl_col_names]
-    ensure_as_template(soil_n_dt, templates_l$soils_l$n)
+    soil_n_dt <- check_soil_table(soil_dt, "nitrogen")
 
     # insert optional arguments when n_supply_prev_frt_kg_ha is 0
-    n_supply_prev_frt_kg_ha <- years_ago <- organic_fertilizer <- NULL
-    if (vars[, n_supply_prev_frt_kg_ha] == 0) {
-      vars[, years_ago := 0L][, organic_fertilizer := ""]
+    if (vars$n_supply_prev_frt_kg_ha == 0L) {
+      vars <- within(
+        vars, {
+          years_ago          <- 0L
+          organic_fertilizer <- "" })
     }
-    vars_col_names <- names(templates_l$vars_l$n)
-    vars_n_dt      <- vars[, .SD, .SDcols = vars_col_names]
-    ensure_as_template(vars_n_dt, templates_l$vars_l$n)
+    vars_n_dt      <- check_vars(vars, "nitrogen")
 
     nitrogen <- NULL
     ntrt_results_dt[, nitrogen := demand_nitrogen(cbind(soil_n_dt, vars_n_dt))]
@@ -145,28 +142,16 @@ demand_nutrient <- function(soil_dt, vars, nutrient = "all") `: dt` ({
 
   # phosphorus
   if ("phosphorus" %in% nutrient) {
-    tbl_col_names <- names(templates_l$soils_l$p)
-    soil_p_dt     <- soil_dt[, .SD, .SDcols = tbl_col_names]
-    ensure_as_template(soil_p_dt, templates_l$soils_l$p)
-
-    vars_col_names <- names(templates_l$vars_l$p)
-    vars_p_dt      <- vars[, .SD, .SDcols = vars_col_names]
-    ensure_as_template(vars_p_dt, templates_l$vars_l$p)
-
+    soil_p_dt <- check_soil_table(soil_dt, "phosphorus")
+    vars_p_dt <- check_vars(vars, "phosphorus")
     phosphorus <- NULL
     ntrt_results_dt[, phosphorus := demand_phosphorus(cbind(soil_p_dt, vars_p_dt))]
   }
 
   # potassium
   if ("potassium" %in% nutrient) {
-    tbl_col_names <- names(templates_l$soils_l$k)
-    soil_k_dt     <- soil_dt[, .SD, .SDcols = tbl_col_names]
-    ensure_as_template(soil_k_dt, templates_l$soils_l$k)
-
-    vars_col_names <- names(templates_l$vars_l$k)
-    vars_k_dt      <- vars[, .SD, .SDcols = vars_col_names]
-    ensure_as_template(vars_k_dt, templates_l$vars_l$k)
-
+    soil_k_dt <- check_soil_table(soil_dt, "potassium")
+    vars_k_dt <- check_vars(vars, "potassium")
     potassium <- NULL
     ntrt_results_dt[, potassium := demand_potassium(cbind(soil_k_dt, vars_k_dt))]
   }

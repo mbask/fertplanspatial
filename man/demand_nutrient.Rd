@@ -106,7 +106,8 @@ Environmental features needed for \strong{potassium} nutrient:
 A real soil samples \code{data.table} is available as package dataset \code{\link{soils}}.
 
 More informations on soil properties and other variables related to the
-crop and the environment can be found in \code{\link{templates_l}},
+crop and the environment can be found in the documentation of the
+\code{\link[=check_soil_table]{check_soil_table()}} and \code{\link[=check_vars]{check_vars()}} functions,
 in package \href{http://github.com/mbask/fertplan}{fertplan} help pages, and in vignettes and in the
 guideline of Region Lazio.
 }
