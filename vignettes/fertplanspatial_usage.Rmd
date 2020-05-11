@@ -4,7 +4,7 @@ author: "Marco Bascietto"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{fertplanspatial package usage}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -65,8 +65,10 @@ soil_vars <- list(
   crop_type            = "Girasole",
   # Mixed grassland, less than 5% fabaceae; to be looked up in table 5 (page 24)
   prev_crop            = "Prati: polifita con meno del 5%", 
-  drainage_rate        = "slow", # to be looked up in table 4 (page 23)
-  oct_jan_pr_mm        = 350, # Rainfall between October 2018 and January 2019 in mm
+  # to be looked up in table 4 (page 23)
+  drainage_rate        = "slow",
+  # Rainfall between October and January in mm
+  oct_jan_pr_mm        = 350,
   n_supply_prev_frt_kg_ha = 0,
   n_supply_atm_coeff   = 1,
 
