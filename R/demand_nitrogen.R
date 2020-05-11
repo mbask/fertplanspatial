@@ -13,7 +13,7 @@ demand_nitrogen <- function(soil_dt) `: numeric` ({
   # prevent no visible binding NOTE
   crop <- expected_yield_kg_ha <- crop_type <- N_pc <- texture <- SOM_pc <- CNR <- oct_jan_pr_mm <- NULL
   drainage_rate <- prev_crop <- n_supply_prev_frt_kg_ha <- n_supply_atm_coeff <- n_demand_kg_ha <- NULL
-  b1_N_kg_ha <- b2_N_kg_ha <- B_N_kg_ha <- NULL
+  n_supply_prev_frt_kg_ha <- years_ago <- organic_fertilizer <- b1_N_kg_ha <- b2_N_kg_ha <- B_N_kg_ha <- NULL
 
   demand_dt <- soil_dt[
     , `:=` (
@@ -41,7 +41,7 @@ demand_nitrogen <- function(soil_dt) `: numeric` ({
         drainage_rate = drainage_rate,
         soil_texture  = texture),
       E_N_kg_ha              = fertplan::E_N_from_prev_crop(crop = prev_crop),
-      F_N_kg_ha              = fertplan::F_N_prev_fertilization(n_supply = n_supply_prev_frt_kg_ha),
+      F_N_kg_ha              = fertplan::F_N_prev_fertilization(n_supply_prev_frt_kg_ha, organic_fertilizer, years_ago),
       G_N_kg_ha              = fertplan::G_N_from_atmosphere(coeff = n_supply_atm_coeff))]
 
   fertzl_cols <- grep(

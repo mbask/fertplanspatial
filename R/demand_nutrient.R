@@ -129,6 +129,11 @@ demand_nutrient <- function(soil_dt, vars, nutrient = "all") `: dt` ({
     soil_n_dt     <- soil_dt[, .SD, .SDcols = tbl_col_names]
     ensure_as_template(soil_n_dt, templates_l$soils_l$n)
 
+    # insert optional arguments when n_supply_prev_frt_kg_ha is 0
+    n_supply_prev_frt_kg_ha <- years_ago <- organic_fertilizer <- NULL
+    if (vars[, n_supply_prev_frt_kg_ha] == 0) {
+      vars[, years_ago := 0][, organic_fertilizer := ""]
+    }
     vars_col_names <- names(templates_l$vars_l$n)
     vars_n_dt      <- vars[, .SD, .SDcols = vars_col_names]
     ensure_as_template(vars_n_dt, templates_l$vars_l$n)

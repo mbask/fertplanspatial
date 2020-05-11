@@ -36,6 +36,8 @@ Templates for \strong{Nitrogen} nutrient:
 \item \strong{drainage_rate}, Rate of drainage in soil (either "fast", "normal", "slow", "no drainage"), \code{character}
 \item \strong{oct_jan_pr_mm}, cumulative precipitation in mm in the 4 months-period October - January, \code{numeric}
 \item \strong{n_supply_prev_frt_kg_ha}, Supply from organic fertilizations, \code{numeric}
+\item \strong{organic_fertilizer}, Type of organic fertilizer used, \code{character}
+\item \strong{years_ago} * Time since last organic fertilization, \code{numeric}
 \item \strong{n_supply_atm_coeff}, A ratio to correct the N from atmosphere, \code{numeric}
 }
 
