@@ -76,7 +76,8 @@ guidelines.
 Environmental features needed for \strong{nitrogen} nutrient:
 \itemize{
 \item \strong{crop}, The crop name to be sown, to be looked up in table 15.2 (page 63 of the guidelines)
-\item \strong{crop_type}, The crop type to be sown,  to be looked up in table 15.3 (page 67)
+\item \strong{part}, The part of interest of the crop (Frutti, Pianta, ...), \code{character}
+\item \strong{crop_type}, The crop type to be sown, to be looked up in table 15.3 (page 67)
 \item \strong{expected_yield_kg_ha}, Expected crop yield in kg/ha
 \item \strong{prev_crop}, name or type of the previous crop, to be looked up in table 5 (page 24)
 \item \strong{texture}, Soil texture from (one of "Sandy", "Loam", "Clayey")
@@ -89,6 +90,7 @@ Environmental features needed for \strong{nitrogen} nutrient:
 Environmental features needed for \strong{phosphorus} nutrient:
 \itemize{
 \item \strong{crop}, The crop name to be sown, to be looked up in table 15.2 (page 63 of the guidelines)
+\item \strong{part}, The part of interest of the crop (Frutti, Pianta, ...), \code{character}
 \item \strong{crop_class}, The class of crop to be sown, to be looked up in table 10 (page 32)
 \item \strong{expected_yield_kg_ha}, Expected crop yield in kg/ha
 \item \strong{texture}, Soil texture from (one of "Sandy", "Loam", "Clayey")
@@ -98,6 +100,7 @@ Environmental features needed for \strong{phosphorus} nutrient:
 Environmental features needed for \strong{potassium} nutrient:
 \itemize{
 \item \strong{crop}, The crop name to be sown, to be looked up in table 15.2 (page 63 of the guidelines)
+\item \strong{part}, The part of interest of the crop (Frutti, Pianta, ...), \code{character}
 \item \strong{expected_yield_kg_ha}, Expected crop yield in kg/ha
 \item \strong{texture}, Soil texture from (one of "Sandy", "Loam", "Clayey")
 \item \strong{soil_depth_cm}, depth of soil tillage practise in cm, usually 30 or 40 cm

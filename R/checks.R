@@ -22,6 +22,7 @@ templates_l <- list(
   vars_l = list(
     nitrogen = data.table::data.table(
       crop                    = character(0),
+      part                    = character(0),
       crop_type               = character(0),
       expected_yield_kg_ha    = integer(0),
       prev_crop               = character(0),
@@ -34,12 +35,14 @@ templates_l <- list(
       n_supply_atm_coeff      = numeric(0)),
     phosphorus = data.table::data.table(
       crop                 = character(0),
+      part                 = character(0),
       crop_class           = character(0),
       expected_yield_kg_ha = integer(0),
       texture              = character(0),
       soil_depth_cm        = integer(0)),
     potassium = data.table::data.table(
       crop                 = character(0),
+      part                 = character(0),
       expected_yield_kg_ha = integer(0),
       texture              = character(0),
       soil_depth_cm        = integer(0))))
@@ -72,7 +75,7 @@ templates_l <- list(
 #'  * **Limestone_pc**, Calcium in soil in percentage, `numeric`
 #'
 #'
-#' templates for **Potassium** nutrient table:
+#' templates for **potassium** nutrient table:
 #'
 #'  * **K_ppm**, Potassium in soil in ppm (mg/kg), `numeric`
 #'  * **Clay_pc**, Soil clay content, `numeric`
@@ -138,10 +141,11 @@ check_soil_table <- function(soil_dt, nutrient) {
 #' Template for **nitrogen** nutrient list:
 #'
 #'  * **crop**, The crop name to be sown, `character`
+#'  * **part**, The part of interest of the crop (Frutti, Pianta, ...), `character`
 #'  * **crop_type**, The crop type to be sown, `character`
 #'  * **expected_yield_kg_ha**, Expected crop yield, `integer`
 #'  * **prev_crop**, Soil clay content, `character`
-#'  * **texture**, Soil texture from (one of "Sandy", "Loam", "Clayey"), `character`
+#'  * **texture**, Soil texture (one of "Sandy", "Loam", "Clayey"), `character`
 #'  * **drainage_rate**, Rate of drainage in soil (either "fast", "normal", "slow", "no drainage"), `character`
 #'  * **oct_jan_pr_mm**, cumulative precipitation in mm in the 4 months-period October - January, `integer`
 #'  * **n_supply_prev_frt_kg_ha**, Supply from organic fertilizations, `integer`
@@ -153,18 +157,20 @@ check_soil_table <- function(soil_dt, nutrient) {
 #' Template for **phosphorus** nutrient list:
 #'
 #'  * **crop**, The crop name to be sown, `character`
+#'  * **part**, The part of interest of the crop (Frutti, Pianta, ...), `character`
 #'  * **crop_class**, The class of crop to be sown, `character`
 #'  * **expected_yield_kg_ha**, Expected crop yield, `integer`
-#'  * **texture**, Soil texture from (one of "Sandy", "Loam", "Clayey"), `character`
+#'  * **texture**, Soil texture (one of "Sandy", "Loam", "Clayey"), `character`
 #'  * **soil_depth_cm**, depth of soil tillage practise, `integer`
 #'
 #'
 #' Template for **potassium** nutrient list:
 #'
 #'  * **crop**, The crop name to be sown, `character`
+#'  * **part**, The part of interest of the crop (Frutti, Pianta, ...), `character`
 #'  * **crop_class**, The class of crop to be sown, `character`
 #'  * **expected_yield_kg_ha**, Expected crop yield, `integer`
-#'  * **texture**, Soil texture from (one of "Sandy", "Loam", "Clayey"), `character`
+#'  * **texture**, Soil texture (one of "Sandy", "Loam", "Clayey"), `character`
 #'  * **soil_depth_cm**, depth of soil tillage practise, `integer`
 #'
 #' Note that the appropriate classes of the variables
@@ -187,7 +193,7 @@ check_soil_table <- function(soil_dt, nutrient) {
 #'
 
 #' @md
-check_vars <- function(vars, nutrient) {
+check_vars <- function(vars = NULL, nutrient) {
   ensurer::ensure(nutrient, +is_character, +is_nutrient)
 
   # When vars is NULL than return a vector of

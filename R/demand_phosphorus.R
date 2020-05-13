@@ -11,13 +11,13 @@ demand_phosphorus <- function(soil_dt) `: numeric` ({
   flow_cmpnts_c <- paste(LETTERS[1:3], "P_kg_ha", sep = "_")
 
   # prevent no visible binding NOTE
-  crop <- expected_yield_kg_ha <- crop_class <- P_ppm <- texture <- soil_depth_cm <- NULL
+  crop <- part <- expected_yield_kg_ha <- crop_class <- P_ppm <- texture <- soil_depth_cm <- NULL
   Limestone_pc <- p_demand_kg_ha <- A_P_kg_ha <- B_P_kg_ha <- C_P_kg_ha <- NULL
 
   demand_dt <- soil_dt[
     , `:=` (
     A_P_kg_ha              = fertplan::A_crop_demand(
-      crop_abs       = fertplan::rem_P_coef_of(crop) / 100,
+      crop_abs       = fertplan::rem_P_coef_of(crop, part) / 100,
       crop_exp_yield = expected_yield_kg_ha),
     B_P_kg_ha              = fertplan::B_P_in_soil(
       crop           = crop_class,

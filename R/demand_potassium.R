@@ -11,13 +11,13 @@ demand_potassium <- function(soil_dt) `: numeric` ({
   flow_cmpnts_c <- paste(LETTERS[5:8], "K_kg_ha", sep = "_")
 
   # prevent no visible binding NOTE
-  crop <- expected_yield_kg_ha <- K_ppm <- texture <- soil_depth_cm <- NULL
+  crop <- part <- expected_yield_kg_ha <- K_ppm <- texture <- soil_depth_cm <- NULL
   Clay_pc <- k_demand_kg_ha <- E_K_kg_ha <- F_K_kg_ha <- G_K_kg_ha <- H_K_kg_ha<- NULL
 
   demand_dt <- soil_dt[
     , `:=` (
       E_K_kg_ha              = fertplan::A_crop_demand(
-        crop_abs       = fertplan::rem_K_coef_of(crop) / 100,
+        crop_abs       = fertplan::rem_K_coef_of(crop, part) / 100,
         crop_exp_yield = expected_yield_kg_ha),
       F_K_kg_ha              = fertplan::F_K_in_soil(
         k_ppm         = K_ppm,

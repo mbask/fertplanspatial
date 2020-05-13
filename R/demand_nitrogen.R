@@ -11,7 +11,7 @@ demand_nitrogen <- function(soil_dt) `: numeric` ({
   flow_cmpnts_c <- paste(LETTERS[1:7], "N_kg_ha", sep = "_")
 
   # prevent no visible binding NOTE
-  crop <- expected_yield_kg_ha <- crop_type <- N_pc <- texture <- SOM_pc <- CNR <- oct_jan_pr_mm <- NULL
+  crop <- part <- expected_yield_kg_ha <- crop_type <- N_pc <- texture <- SOM_pc <- CNR <- oct_jan_pr_mm <- NULL
   drainage_rate <- prev_crop <- n_supply_prev_frt_kg_ha <- n_supply_atm_coeff <- n_demand_kg_ha <- NULL
   n_supply_prev_frt_kg_ha <- years_ago <- organic_fertilizer <- b1_N_kg_ha <- b2_N_kg_ha <- B_N_kg_ha <- NULL
 
@@ -28,7 +28,7 @@ demand_nitrogen <- function(soil_dt) `: numeric` ({
   demand_dt[
     , `:=` (
       A_N_kg_ha              = fertplan::A_crop_demand(
-        crop_abs       = fertplan::rem_N_coef_of(crop) / 100,
+        crop_abs       = fertplan::rem_N_coef_of(crop, part) / 100,
         crop_exp_yield = expected_yield_kg_ha),
       B_N_kg_ha              = fertplan::B_N_in_soil(b1_N_kg_ha, b2_N_kg_ha),
       C_N_kg_ha              = fertplan::C_N_precip_leach(

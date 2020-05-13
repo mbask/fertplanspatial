@@ -48,7 +48,8 @@
 #' Environmental features needed for **nitrogen** nutrient:
 #'
 #'  * **crop**, The crop name to be sown, to be looked up in table 15.2 (page 63 of the guidelines)
-#'  * **crop_type**, The crop type to be sown,  to be looked up in table 15.3 (page 67)
+#'  * **part**, The part of interest of the crop (Frutti, Pianta, ...), `character`
+#'  * **crop_type**, The crop type to be sown, to be looked up in table 15.3 (page 67)
 #'  * **expected_yield_kg_ha**, Expected crop yield in kg/ha
 #'  * **prev_crop**, name or type of the previous crop, to be looked up in table 5 (page 24)
 #'  * **texture**, Soil texture from (one of "Sandy", "Loam", "Clayey")
@@ -60,6 +61,7 @@
 #' Environmental features needed for **phosphorus** nutrient:
 #'
 #'  * **crop**, The crop name to be sown, to be looked up in table 15.2 (page 63 of the guidelines)
+#'  * **part**, The part of interest of the crop (Frutti, Pianta, ...), `character`
 #'  * **crop_class**, The class of crop to be sown, to be looked up in table 10 (page 32)
 #'  * **expected_yield_kg_ha**, Expected crop yield in kg/ha
 #'  * **texture**, Soil texture from (one of "Sandy", "Loam", "Clayey")
@@ -68,6 +70,7 @@
 #' Environmental features needed for **potassium** nutrient:
 #'
 #'  * **crop**, The crop name to be sown, to be looked up in table 15.2 (page 63 of the guidelines)
+#'  * **part**, The part of interest of the crop (Frutti, Pianta, ...), `character`
 #'  * **expected_yield_kg_ha**, Expected crop yield in kg/ha
 #'  * **texture**, Soil texture from (one of "Sandy", "Loam", "Clayey")
 #'  * **soil_depth_cm**, depth of soil tillage practise in cm, usually 30 or 40 cm

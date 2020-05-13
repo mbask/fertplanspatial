@@ -43,7 +43,7 @@ Template for \strong{phosphorus} nutrient table:
 \item \strong{Limestone_pc}, Calcium in soil in percentage, \code{numeric}
 }
 
-templates for \strong{Potassium} nutrient table:
+templates for \strong{potassium} nutrient table:
 \itemize{
 \item \strong{K_ppm}, Potassium in soil in ppm (mg/kg), \code{numeric}
 \item \strong{Clay_pc}, Soil clay content, \code{numeric}

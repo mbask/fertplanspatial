@@ -4,7 +4,7 @@
 \alias{check_vars}
 \title{Performs sanity checks on soil variables}
 \usage{
-check_vars(vars, nutrient)
+check_vars(vars = NULL, nutrient)
 }
 \arguments{
 \item{vars}{A list where atmospheric, crop, and soil variables needed are given, or \code{NULL}}
@@ -33,10 +33,11 @@ Variable list templates for variables:
 Template for \strong{nitrogen} nutrient list:
 \itemize{
 \item \strong{crop}, The crop name to be sown, \code{character}
+\item \strong{part}, The part of interest of the crop (Frutti, Pianta, ...), \code{character}
 \item \strong{crop_type}, The crop type to be sown, \code{character}
 \item \strong{expected_yield_kg_ha}, Expected crop yield, \code{integer}
 \item \strong{prev_crop}, Soil clay content, \code{character}
-\item \strong{texture}, Soil texture from (one of "Sandy", "Loam", "Clayey"), \code{character}
+\item \strong{texture}, Soil texture (one of "Sandy", "Loam", "Clayey"), \code{character}
 \item \strong{drainage_rate}, Rate of drainage in soil (either "fast", "normal", "slow", "no drainage"), \code{character}
 \item \strong{oct_jan_pr_mm}, cumulative precipitation in mm in the 4 months-period October - January, \code{integer}
 \item \strong{n_supply_prev_frt_kg_ha}, Supply from organic fertilizations, \code{integer}
@@ -48,18 +49,20 @@ Template for \strong{nitrogen} nutrient list:
 Template for \strong{phosphorus} nutrient list:
 \itemize{
 \item \strong{crop}, The crop name to be sown, \code{character}
+\item \strong{part}, The part of interest of the crop (Frutti, Pianta, ...), \code{character}
 \item \strong{crop_class}, The class of crop to be sown, \code{character}
 \item \strong{expected_yield_kg_ha}, Expected crop yield, \code{integer}
-\item \strong{texture}, Soil texture from (one of "Sandy", "Loam", "Clayey"), \code{character}
+\item \strong{texture}, Soil texture (one of "Sandy", "Loam", "Clayey"), \code{character}
 \item \strong{soil_depth_cm}, depth of soil tillage practise, \code{integer}
 }
 
 Template for \strong{potassium} nutrient list:
 \itemize{
 \item \strong{crop}, The crop name to be sown, \code{character}
+\item \strong{part}, The part of interest of the crop (Frutti, Pianta, ...), \code{character}
 \item \strong{crop_class}, The class of crop to be sown, \code{character}
 \item \strong{expected_yield_kg_ha}, Expected crop yield, \code{integer}
-\item \strong{texture}, Soil texture from (one of "Sandy", "Loam", "Clayey"), \code{character}
+\item \strong{texture}, Soil texture (one of "Sandy", "Loam", "Clayey"), \code{character}
 \item \strong{soil_depth_cm}, depth of soil tillage practise, \code{integer}
 }
 

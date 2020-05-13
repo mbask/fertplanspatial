@@ -56,6 +56,7 @@ A few more environmental and crop-related variables are still needed. They can b
 soil_vars <- list(
   # Common vars among nitrogen, phosphorus, and potassium
   crop                 = "Girasole", # Sunflower, to be looked up in table 15.2 (page 63)
+  part                 = "Frutti",
   expected_yield_kg_ha = 1330L,
   texture              = "Loam", # to be chosen among Sandy, Loam, Clayey
   
