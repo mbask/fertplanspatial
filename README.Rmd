@@ -33,10 +33,10 @@ The goal of the package is to define fertilization plans for the fields of a far
 `fertplanspatial` is currently in active development and not yet on CRAN, it may be installed from this GitHub repository though:
 
 ```{r, eval = FALSE}
-# Install devtools package if not yet present in R library
-# install.packages("devtools")
+# Install remotes package if not yet present in R library
+# install.packages("remotes")
 
-devtools::install_github("mbask/fertplanspatial")
+remotes::install_github("mbask/fertplanspatial")
 ```
 
 

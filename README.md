@@ -18,10 +18,10 @@ to perform the raw computations.
 CRAN, it may be installed from this GitHub repository though:
 
 ``` r
-# Install devtools package if not yet present in R library
-# install.packages("devtools")
+# Install remotes package if not yet present in R library
+# install.packages("remotes")
 
-devtools::install_github("mbask/fertplanspatial")
+remotes::install_github("mbask/fertplanspatial")
 ```
 
 ## Fertilization plans for nitrogen, phosphorus, and potassium nutrients
@@ -104,6 +104,7 @@ They can be easily stored in a `R` list:
 soil_vars <- list(
   # Common vars among nitrogen, phosphorus, and potassium
   crop                 = "Girasole", # Sunflower, to be looked up in table 15.2 (page 63)
+  part                 = "Frutti",
   expected_yield_kg_ha = 1330L,
   texture              = "Loam", # to be chosen among Sandy, Loam, Clayey
   
