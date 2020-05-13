@@ -81,7 +81,7 @@ soil_vars <- list(
   crop_class           = "Girasole") # Sunflower, to be looked up in table 10 (page 32)
 ```
 
-Crop-related variables are looked pu in the Regione Lazio guidelines for fertilization (see `fertplan` [package](https://github.com/mbask/fertplan) for mor information on the guidelines). For the sake of simplicity, environmental and crop-related variables are shared among soil samples. Should it be not the case `fetplan` package may be used to compute nutrient demands for varying environmental and crop-related variables.
+Crop-related variables are looked ip in the Regione Lazio guidelines for fertilization (see `fertplan` [package](https://github.com/mbask/fertplan) for more information on the guidelines). For the sake of simplicity, environmental and crop-related variables are shared among soil samples. Should it be not the case `fetplan` package may be used to compute nutrient demands for varying environmental and crop-related variables.
 
 The first step is to compute the nutrients demand for each soil sample:
 
