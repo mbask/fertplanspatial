@@ -140,29 +140,29 @@ environmental and crop-related variables.
 The first step is to compute the nutrients demand for each soil sample:
 
 ``` r
-nutrient_dt <- demand_nutrient(soils, soil_vars, c("all"))
+nutrient_dt <- demand_nutrient(soils, soil_vars, nutrient = "all", blnc_cmpt = FALSE)
 print(nutrient_dt)
-#>     nitrogen phosphorus  potassium
-#>  1: -23.4051    83.9776 -1854.4582
-#>  2: -28.9015    60.0745 -1332.6616
-#>  3: -27.7770    61.6540 -1638.2890
-#>  4: -28.6766    60.5425 -2124.7906
-#>  5: -19.6988    19.0504 -1268.5222
-#>  6: -24.5205    58.2025 -1168.7290
-#>  7: -27.5521    59.6065 -1263.4990
-#>  8: -28.2177    56.2408 -1609.2730
-#>  9: -24.0707    60.0745 -1228.7032
-#> 10: -26.0948    74.5864 -1542.9418
-#> 11: -28.5596    60.5425 -1105.2526
-#> 12: -22.8383    74.0677  -960.7810
-#> 13: -30.4667    74.2900 -1603.4698
-#> 14: -31.1401    55.4803  -986.1154
-#> 15: -24.5205    61.5097  -907.1170
-#> 16: -28.2268    48.7957 -1238.3518
-#> 17: -30.9945    25.4893 -2069.9722
-#> 18: -25.3122    68.7325 -1335.4540
-#> 19: -26.5446    74.2900 -1266.5722
-#> 20: -24.8624    59.3725  -851.8540
+#>     nitrogen_kg_ha phosphorus_kg_ha potassium_kg_ha
+#>  1:       -23.4051          83.9776      -1854.4582
+#>  2:       -28.9015          60.0745      -1332.6616
+#>  3:       -27.7770          61.6540      -1638.2890
+#>  4:       -28.6766          60.5425      -2124.7906
+#>  5:       -19.6988          19.0504      -1268.5222
+#>  6:       -24.5205          58.2025      -1168.7290
+#>  7:       -27.5521          59.6065      -1263.4990
+#>  8:       -28.2177          56.2408      -1609.2730
+#>  9:       -24.0707          60.0745      -1228.7032
+#> 10:       -26.0948          74.5864      -1542.9418
+#> 11:       -28.5596          60.5425      -1105.2526
+#> 12:       -22.8383          74.0677       -960.7810
+#> 13:       -30.4667          74.2900      -1603.4698
+#> 14:       -31.1401          55.4803       -986.1154
+#> 15:       -24.5205          61.5097       -907.1170
+#> 16:       -28.2268          48.7957      -1238.3518
+#> 17:       -30.9945          25.4893      -2069.9722
+#> 18:       -25.3122          68.7325      -1335.4540
+#> 19:       -26.5446          74.2900      -1266.5722
+#> 20:       -24.8624          59.3725       -851.8540
 ```
 
 We computed all three macronutrients demands (NPK) by specifying “all”
@@ -172,7 +172,7 @@ by simply passing a vector of characters such as `c("nitrogen",
 
 ### Step 2: spatialise nutrient demands at field level
 
-We will noe be using the `soil_spatial` builtin dataset. This dataset
+We will now be using the `soil_spatial` builtin dataset. This dataset
 collects nutrient demands for the same 20 soil sample as the `soils`
 dataset and includes samples geographic coordinates as “X”, and “Y”:
 

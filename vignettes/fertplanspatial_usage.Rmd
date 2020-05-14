@@ -96,7 +96,7 @@ We computed all three macronutrients demands (NPK) by specifying "all" to the `n
 
 ### Step 2: spatialise nutrient demands at field level
 
-We will noe be using the `soil_spatial` builtin dataset. This dataset collects nutrient demands for the same 20 soil sample as the `soils` dataset and includes samples geographic coordinates as "X", and "Y":
+We will now be using the `soil_spatial` builtin dataset. This dataset collects nutrient demands for the same 20 soil sample as the `soils` dataset and includes samples geographic coordinates as "X", and "Y":
 
 ```{r}
 data("soils_spatial")
