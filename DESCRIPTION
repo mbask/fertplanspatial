@@ -1,8 +1,8 @@
 Package: fertplanspatial
 Type: Package
 Title: Compute And Spatialize NPK Fertilization Plans
-Version: 0.3.1
-Date: 2020-05-13
+Version: 0.3.2
+Date: 2020-05-14
 Authors@R: c(person("Marco", "Bascietto", role = c("aut", "cre"),
                      email = "marco.bascietto@crea.gov.it"))
 Description: From physical and chemical analyses of soil samples to spatialized 
