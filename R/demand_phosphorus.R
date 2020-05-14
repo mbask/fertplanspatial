@@ -4,15 +4,16 @@
 # as no checks are performed on its arguments
 #
 # @param soil_dt   a \code{data.table} of soil samples bound with environmental and crop-related and variables
+# @param blnc_cmpt should the individual phosphorus components or just the nutrient balance itself be returned?
 #
 # @return          a numeric vector of length equal to the number of rows in \code{soil_dt}
-demand_phosphorus <- function(soil_dt) `: numeric` ({
+demand_phosphorus <- function(soil_dt, blnc_cmpt) `: dt` ({
 
   flow_cmpnts_c <- paste(LETTERS[1:3], "P_kg_ha", sep = "_")
 
   # prevent no visible binding NOTE
   crop <- part <- expected_yield_kg_ha <- crop_class <- P_ppm <- texture <- soil_depth_cm <- NULL
-  Limestone_pc <- p_demand_kg_ha <- A_P_kg_ha <- B_P_kg_ha <- C_P_kg_ha <- NULL
+  Limestone_pc <- phosphorus_kg_ha <- A_P_kg_ha <- B_P_kg_ha <- C_P_kg_ha <- NULL
 
   demand_dt <- soil_dt[
     , `:=` (
@@ -34,10 +35,13 @@ demand_phosphorus <- function(soil_dt) `: numeric` ({
     value   = TRUE)
   ensurer::ensure_that(
     fertzl_cols,
-    identical(., flow_cmpnts_c) ~ "some phosphorus components missing, impossible to estimate P demand.")
+    identical(., flow_cmpnts_c) ~ "some components of phosphorus balance are missing.")
 
-  demand_dt[, p_demand_kg_ha := A_P_kg_ha + B_P_kg_ha * C_P_kg_ha]
-
-  demand_dt[, p_demand_kg_ha]
+  if (blnc_cmpt) {
+    demand_dt[, fertzl_cols, with = FALSE]
+  } else {
+    demand_dt[, phosphorus_kg_ha := A_P_kg_ha + B_P_kg_ha * C_P_kg_ha]
+    demand_dt[, "phosphorus_kg_ha"]
+  }
 })
 

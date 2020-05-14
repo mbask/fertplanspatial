@@ -86,7 +86,7 @@ Crop-related variables are looked ip in the Regione Lazio guidelines for fertili
 The first step is to compute the nutrients demand for each soil sample:
 
 ```{r}
-nutrient_dt <- demand_nutrient(soils, soil_vars, c("all"))
+nutrient_dt <- demand_nutrient(soils, soil_vars, nutrient = "all", blnc_cmpt = FALSE)
 print(nutrient_dt)
 ```
 

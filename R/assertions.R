@@ -10,6 +10,9 @@ is_list <-
 is_numeric <-
   ensurer::ensures_that(is.numeric(.) ~ "vector must be of numeric type.")
 
+is_logical <-
+  ensurer::ensures_that(is.logical(.) ~ "expecting a `TRUE` or `FALSE` variable.")
+
 is_df <-
   ensurer::ensures_that(is.data.frame(.) ~ "table must be a proper data.frame object.")
 

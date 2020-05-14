@@ -4,7 +4,7 @@
 \alias{demand_nutrient}
 \title{Compute NPK fertilization}
 \usage{
-demand_nutrient(soil_dt, vars, nutrient = "all")
+demand_nutrient(soil_dt, vars, nutrient = "all", blnc_cmpt = FALSE)
 }
 \arguments{
 \item{soil_dt}{a \code{data.table} of soil properties (columns)
@@ -20,11 +20,15 @@ passed in \code{nutrient} parameter}
 fertilization plan to compute among "nitrogen", "phosphorus", and
 "potassium". Any combination of the three nutrients can be given or
 "all" (default) to compute all of them.}
+
+\item{blnc_cmpt}{should the individual components of the nutrient
+balance or just the nutrient balance itself be returned? Default to return nutrient balance.}
 }
 \value{
-a \code{data.table} with as many features as nutrients
-given as \code{nutrient} parameter and as many rows as soil samples
-given as \code{soil_dt} parameter.
+a \code{data.table} with as many rows as soil samples
+given as \code{soil_dt} argument. When \code{blnc_cmpt} is set to \code{FALSE}, the
+\code{data.table} will feature the nutrient balances given as \code{nutrient} argument.
+Otherwise it will feature the as many balance components as each nutrients foresees.
 }
 \description{
 This is the main interface hub to all \code{fertplan} package functions. Its main
@@ -113,6 +117,16 @@ crop and the environment can be found in the documentation of the
 \code{\link[=check_soil_table]{check_soil_table()}} and \code{\link[=check_vars]{check_vars()}} functions,
 in package \href{http://github.com/mbask/fertplan}{fertplan} help pages, and in vignettes and in the
 guideline of Region Lazio.
+}
+\examples{
+soil_vars <- list(
+crop                 = "Girasole", # Sunflower, to be looked up in table 15.2 (page 63)
+part                 = "Frutti",
+expected_yield_kg_ha = 1330L,
+texture              = "Loam", # to be chosen among Sandy, Loam, Clayey
+soil_depth_cm        = 30L)
+data(soils)
+nutrient_dt <- demand_nutrient(soils, soil_vars, nutrient = "potassium")
 }
 \seealso{
 \href{http://github.com/mbask/fertplan}{fertplan} package.

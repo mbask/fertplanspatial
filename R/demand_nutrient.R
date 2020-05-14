@@ -94,10 +94,13 @@
 #'   fertilization plan to compute among "nitrogen", "phosphorus", and
 #'   "potassium". Any combination of the three nutrients can be given or
 #'   "all" (default) to compute all of them.
+#' @param blnc_cmpt  should the individual components of the nutrient
+#'   balance or just the nutrient balance itself be returned? Default to return nutrient balance.
 #'
-#' @return  a `data.table` with as many features as nutrients
-#'   given as `nutrient` parameter and as many rows as soil samples
-#'   given as `soil_dt` parameter.
+#' @return  a `data.table` with as many rows as soil samples
+#'   given as `soil_dt` argument. When `blnc_cmpt` is set to `FALSE`, the
+#'   `data.table` will feature the nutrient balances given as `nutrient` argument.
+#'   Otherwise it will feature the as many balance components as each nutrients foresees.
 #' @md
 #' @export
 #' @importFrom ensurer ensure
@@ -110,11 +113,21 @@
 #'   Cibo, Ambiente e Risorse Naturali. 2020. “Parte Agronomica, Norme Generali,
 #'   Disciplinare Di Produzione Integrata Della Regione Lazio - SQNPI.” Regione Lazio.
 #'   \url{http://www.regione.lazio.it/rl_agricoltura/?vw=documentazioneDettaglio&id=52065}.
-demand_nutrient <- function(soil_dt, vars, nutrient = "all") `: dt` ({
+#' @examples
+#' soil_vars <- list(
+#' crop                 = "Girasole", # Sunflower, to be looked up in table 15.2 (page 63)
+#' part                 = "Frutti",
+#' expected_yield_kg_ha = 1330L,
+#' texture              = "Loam", # to be chosen among Sandy, Loam, Clayey
+#' soil_depth_cm        = 30L)
+#' data(soils)
+#' nutrient_dt <- demand_nutrient(soils, soil_vars, nutrient = "potassium")
+demand_nutrient <- function(soil_dt, vars, nutrient = "all", blnc_cmpt = FALSE) `: dt` ({
 
   ensurer::ensure(soil_dt, +is_df, +are_obs_in_table)
   is_list(vars)
   is_character(nutrient)
+  is_logical(blnc_cmpt)
 
   if ("all" %in% nutrient) {
     nutrient <- c("nitrogen", "phosphorus", "potassium")
@@ -122,8 +135,7 @@ demand_nutrient <- function(soil_dt, vars, nutrient = "all") `: dt` ({
 
   # setup variables and return table
   # for computing nutrient fertilization concentrations
-
-  ntrt_results_dt <- data.table::data.table()
+  ntrt_results_l <- list()
   .SD <- NULL
 
   # nitrogen
@@ -140,7 +152,7 @@ demand_nutrient <- function(soil_dt, vars, nutrient = "all") `: dt` ({
     vars_n_dt      <- check_vars(vars, "nitrogen")
 
     nitrogen <- NULL
-    ntrt_results_dt[, nitrogen := demand_nitrogen(cbind(soil_n_dt, vars_n_dt))]
+    ntrt_results_l$nitrogen <- demand_nitrogen(cbind(soil_n_dt, vars_n_dt), blnc_cmpt)
   }
 
   # phosphorus
@@ -148,7 +160,7 @@ demand_nutrient <- function(soil_dt, vars, nutrient = "all") `: dt` ({
     soil_p_dt <- check_soil_table(soil_dt, "phosphorus")
     vars_p_dt <- check_vars(vars, "phosphorus")
     phosphorus <- NULL
-    ntrt_results_dt[, phosphorus := demand_phosphorus(cbind(soil_p_dt, vars_p_dt))]
+    ntrt_results_l$phosphorus <- demand_phosphorus(cbind(soil_p_dt, vars_p_dt), blnc_cmpt)
   }
 
   # potassium
@@ -156,13 +168,13 @@ demand_nutrient <- function(soil_dt, vars, nutrient = "all") `: dt` ({
     soil_k_dt <- check_soil_table(soil_dt, "potassium")
     vars_k_dt <- check_vars(vars, "potassium")
     potassium <- NULL
-    ntrt_results_dt[, potassium := demand_potassium(cbind(soil_k_dt, vars_k_dt))]
+    ntrt_results_l$potassium <- demand_potassium(cbind(soil_k_dt, vars_k_dt), blnc_cmpt)
   }
 
-  if (ncol(ntrt_results_dt) == 0) {
+  if (!length(ntrt_results_l)) {
     warning("No nutrient demand to compute. Returning a null data.table...")
-    ntrt_results_dt
+    data.table::data.table()
   } else {
-    are_obs_in_table(ntrt_results_dt)
+    are_obs_in_table(Reduce(f = cbind, x = ntrt_results_l))
   }
 })

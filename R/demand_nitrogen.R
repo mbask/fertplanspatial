@@ -4,15 +4,16 @@
 # as no checks are performed on its arguments
 #
 # @param soil_dt   a \code{data.table} of soil samples bound with environmental and crop-related and variables
+# @param blnc_cmpt should the individual nitrogen components or just the nutrient balance itself be returned?
 #
 # @return          a numeric vector of length equal to the number of rows in \code{soil_dt}
-demand_nitrogen <- function(soil_dt) `: numeric` ({
+demand_nitrogen <- function(soil_dt, blnc_cmpt) `: dt` ({
 
   flow_cmpnts_c <- paste(LETTERS[1:7], "N_kg_ha", sep = "_")
 
   # prevent no visible binding NOTE
   crop <- part <- expected_yield_kg_ha <- crop_type <- N_pc <- texture <- SOM_pc <- CNR <- oct_jan_pr_mm <- NULL
-  drainage_rate <- prev_crop <- n_supply_prev_frt_kg_ha <- n_supply_atm_coeff <- n_demand_kg_ha <- NULL
+  drainage_rate <- prev_crop <- n_supply_prev_frt_kg_ha <- n_supply_atm_coeff <- nitrogen_kg_ha <- NULL
   n_supply_prev_frt_kg_ha <- years_ago <- organic_fertilizer <- b1_N_kg_ha <- b2_N_kg_ha <- B_N_kg_ha <- NULL
 
   demand_dt <- soil_dt[
@@ -50,11 +51,15 @@ demand_nitrogen <- function(soil_dt) `: numeric` ({
     value   = TRUE)
   ensurer::ensure_that(
     fertzl_cols,
-    identical(., flow_cmpnts_c) ~ "some nitrogen components missing, impossible to estimate N demand.")
+    identical(., flow_cmpnts_c) ~ "some components of nitrogen balance are missing.")
 
-  .SD <- NULL
-  demand_dt[, n_demand_kg_ha := rowSums(.SD), .SDcols = fertzl_cols]
+  if (blnc_cmpt) {
+    demand_dt[, fertzl_cols, with = FALSE]
+  } else {
+    .SD <- NULL
+    demand_dt[, nitrogen_kg_ha := rowSums(.SD), .SDcols = fertzl_cols]
+    demand_dt[, "nitrogen_kg_ha"]
+  }
 
-  demand_dt[, n_demand_kg_ha]
 })
 
