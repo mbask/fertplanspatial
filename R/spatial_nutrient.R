@@ -113,7 +113,7 @@ spatial_nutrient <- function(sp_df, model = "auto", grid_spdf = NULL, spat_res =
     is_formula(formula)
     spatial_l$k <- variogram_kriging(formula)
   }
-  if (length(spatial_l) == 0) {
+  if (!length(spatial_l)) {
     warning("No nutrient plan spatialised. Returning an empty list...")
   }
   spatial_l

@@ -1,8 +1,8 @@
 Package: fertplanspatial
 Type: Package
 Title: Compute And Spatialize NPK Fertilization Plans
-Version: 0.3.2
-Date: 2020-05-14
+Version: 0.4.0
+Date: 2020-05-15
 Authors@R: c(person("Marco", "Bascietto", role = c("aut", "cre"),
                      email = "marco.bascietto@crea.gov.it"))
 Description: From physical and chemical analyses of soil samples to spatialized 
@@ -15,14 +15,13 @@ BugReports: https://github.com/mbask/fertplanspatial/issues
 Encoding: UTF-8
 LazyData: true
 Depends: 
-    data.table,
-    R (>= 3.5.0)
-Imports:
-    fertplan,
-    ensurer,
+    R (>= 3.5.0),
     sp,
     gstat,
     automap
+Imports:
+    fertplan,
+    ensurer,
 Suggests: 
     tinytest,
     knitr,

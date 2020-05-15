@@ -29,74 +29,8 @@ The workflow for computing nutrient needs by crops starts with the analysis of t
 
 Averaging nutrient demand between soil samples may give a reasonable idea of the crop demand but no clear hint at its spatial variation over the crop area. A few factors may shift nutrient demand over the field area, such as the presence of water tables under the soil surface, or the proximity of a hilly area where nutrients can be moved from, or a previous over- or under-fertilization in localized area, and so on. The ability to spatialize soil demand concentrations from the soil sample points over the whole field may allow farmers to precisely calibrate nutrient spreasing.
 
-### Step 1: compute nutrient demand at soil sample level
 
-We will be using a built-in dataset to demonstrate how to compute and spatialise a field nutrient demand plan:
-
-```{r}
-data(soils)
-knitr::kable(soils)
-```
-
-This datasets holds the actual soil features of 20 samples digged from a field in the north of Rome, in 2019. Soil features include:
-
-  * **id**: a simple id for each soil sample
-  * **N_pc**: nitrogen content in %
-  * **C_pc**: carbon content in %
-  * **CNR**: carbon / nitrogen ratio
-  * **SOM_pc**: soil organic matter in %
-  * **P_ppm**: phosphorus content in ppm (mg/kg)
-  * **K_ppm**: potassium content in ppm (mg/kg)
-  * **Limestone_pc**: calcium (Ca) content in %
-  * **Clay_pc**: clay content in %
-
-A few more environmental and crop-related variables are still needed. They can be easily stored in a `R` list:
-
-```{r}
-soil_vars <- list(
-  # Common vars among nitrogen, phosphorus, and potassium
-  crop                 = "Girasole", # Sunflower, to be looked up in table 15.2 (page 63)
-  part                 = "Frutti",
-  expected_yield_kg_ha = 1330L,
-  texture              = "Loam", # to be chosen among Sandy, Loam, Clayey
-  
-  # Additional vars for nitrogen
-  
-  # Sunflower, to be looked up in table 15.3 (page 67)
-  crop_type            = "Girasole",
-  # Mixed grassland, less than 5% fabaceae; to be looked up in table 5 (page 24)
-  prev_crop            = "Prati: polifita con meno del 5%", 
-  # to be looked up in table 4 (page 23)
-  drainage_rate        = "slow",
-  # Rainfall between October and January in mm
-  oct_jan_pr_mm        = 350L,
-  n_supply_prev_frt_kg_ha = 0L,
-  n_supply_atm_coeff   = 1,
-
-  # Common vars among phosphorus and potassium
-  # Depth of tilled soil in cm
-  soil_depth_cm        = 30L,
-  
-  # Additional vars for phosphorus
-  crop_class           = "Girasole") # Sunflower, to be looked up in table 10 (page 32)
-```
-
-Crop-related variables are looked ip in the Regione Lazio guidelines for fertilization (see `fertplan` [package](https://github.com/mbask/fertplan) for more information on the guidelines). For the sake of simplicity, environmental and crop-related variables are shared among soil samples. Should it be not the case `fetplan` package may be used to compute nutrient demands for varying environmental and crop-related variables.
-
-The first step is to compute the nutrients demand for each soil sample:
-
-```{r}
-nutrient_dt <- demand_nutrient(soils, soil_vars, nutrient = "all", blnc_cmpt = FALSE)
-print(nutrient_dt)
-```
-
-We computed all three macronutrients demands (NPK) by specifying "all" to the `nutrient` argument. We could have specified one or more nutrient by simply passing a vector of characters such as `c("nitrogen", "potassium")`.
-
-
-
-### Step 2: spatialise nutrient demands at field level
-
-We will now be using the `soil_spatial` builtin dataset. This dataset collects nutrient demands for the same 20 soil sample as the `soils` dataset and includes samples geographic coordinates as "X", and "Y":
+We will now be using the `soil_spatial` builtin dataset. This dataset collects nutrient demands for the same 20 soil sample as the `soils` dataset in package `fertplan` and includes samples geographic coordinates as "X", and "Y":
 
 ```{r}
 data("soils_spatial")
