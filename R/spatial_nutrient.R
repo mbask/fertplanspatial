@@ -10,20 +10,12 @@
 #' @return a [sp::SpatialPoints()] for `tab` with a crs assigned and X, Y coordinates identified
 #' @export
 #' @md
-to_sp <- function(tab, crs_s) `: sp` ({
+to_sp <- function(tab, crs_s) `: spatial` ({
   is_df(tab)
   sp::coordinates(tab) <- ~ X + Y
   sp::proj4string(tab) <- crs_s
   tab
 })
-
-
-form_grid <- function(row, res, buffer) {
-  seq(
-    from = row[1] - buffer,
-    to   = row[2] + buffer,
-    by   = res) }
-
 
 
 #' Spatialize nutrient fertilization plans
@@ -52,6 +44,9 @@ form_grid <- function(row, res, buffer) {
 #' @param grid_spdf a [sp::SpatialPoints()] object grid with nutrient predictions
 #'   locations. If `NULL` (default) then a point grid is built using `sp_df` bounding
 #'   box and coordinate reference system, each point spatially distant by `spat_res`.
+#' @param bbox_buffer an integer value to enlarge (or shrink) the bounding box the
+#'   default point grid is built in (i.e. when grid_spdf is set to `NULL`). Default to `0L`,
+#'    i.e. no effect on the bounding box.
 #' @param spat_res a positive number indicating the spatial resolution
 #'   of the resulting spatial grid when `grid_spdf` is `NULL`. Default is 5 metres.
 #' @param nutrient  a character vector detailing which nutrient
@@ -73,7 +68,7 @@ form_grid <- function(row, res, buffer) {
 #' @importFrom gstat    variogram
 #' @importFrom gstat    fit.variogram
 #' @importFrom automap  autofitVariogram
-spatial_nutrient <- function(sp_df, model = "auto", grid_spdf = NULL, spat_res = 5, nutrient = "all", ...) `: spdf_list` ({
+spatial_nutrient <- function(sp_df, model = "auto", grid_spdf = NULL, bbox_buffer = 0L, spat_res = 5L, nutrient = "all", ...) `: spdf_list` ({
 
   variogram_kriging <- function(formula) {
     variogram_n <- variogram_nutrient(
@@ -101,13 +96,15 @@ spatial_nutrient <- function(sp_df, model = "auto", grid_spdf = NULL, spat_res =
     # Build a spatial grid of spat_res distanced points
     # in the sp_df bounding box with same CRS
     ensurer::ensure(spat_res, +is_numeric, +is_positive)
+    is_integer(bbox_buffer)
+
     sp_bbox   <- sp::bbox(sp_df)
     grid_spdf <- to_sp(
       tab = expand.grid(
         apply(
           sp_bbox,
           1,     # on rows
-          function(row) { seq(from = row[1], to = row[2], by = spat_res) }
+          function(row) { seq(from = row[1] - bbox_buffer, to = row[2] + bbox_buffer, by = spat_res) }
       )),
       crs_s = sp::proj4string(sp_df))
   }

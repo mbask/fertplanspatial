@@ -8,7 +8,8 @@ spatial_nutrient(
   sp_df,
   model = "auto",
   grid_spdf = NULL,
-  spat_res = 5,
+  bbox_buffer = 0L,
+  spat_res = 5L,
   nutrient = "all",
   ...
 )
@@ -27,6 +28,10 @@ argument returns a data.frame with available models.}
 \item{grid_spdf}{a \code{\link[sp:SpatialPoints]{sp::SpatialPoints()}} object grid with nutrient predictions
 locations. If \code{NULL} (default) then a point grid is built using \code{sp_df} bounding
 box and coordinate reference system, each point spatially distant by \code{spat_res}.}
+
+\item{bbox_buffer}{an integer value to enlarge (or shrink) the bounding box the
+default point grid is built in (i.e. when grid_spdf is set to \code{NULL}). Default to \code{0L},
+i.e. no effect on the bounding box.}
 
 \item{spat_res}{a positive number indicating the spatial resolution
 of the resulting spatial grid when \code{grid_spdf} is \code{NULL}. Default is 5 metres.}

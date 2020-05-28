@@ -10,6 +10,9 @@ is_list <-
 is_numeric <-
   ensurer::ensures_that(is.numeric(.) ~ "vector must be of numeric type.")
 
+is_integer <-
+  ensurer::ensures_that(is.integer(.) ~ "expected an integer type (eg nL type).")
+
 is_spdf <-
   ensurer::ensures_that("SpatialPointsDataFrame" %in% class(.) ~ "table must be of SpatialPointsDataFrame class from package sp.")
 
@@ -37,8 +40,8 @@ is_variogram_model <-
 `: spdf` <-
   ensurer::ensures_that("SpatialPointsDataFrame" %in% class(.) ~ "this function should return a SpatialPointsDataFrame class object from package sp.")
 
-`: sp` <-
-  ensurer::ensures_that("SpatialPoints" %in% class(.) ~ "this function should return a SpatialPoints class object from package sp.")
+`: spatial` <-
+  ensurer::ensures_that("Spatial" %in% substr(class(.), 1, 7) ~ "this function should return a Spatial* class object from package sp.")
 
 
 # Package-wide assertions -------------------------------------------------
