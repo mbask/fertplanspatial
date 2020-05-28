@@ -13,6 +13,9 @@ is_numeric <-
 is_spdf <-
   ensurer::ensures_that("SpatialPointsDataFrame" %in% class(.) ~ "table must be of SpatialPointsDataFrame class from package sp.")
 
+is_df <-
+  ensurer::ensures_that("data.frame" %in% class(.) ~ "table must be of data.frame class.")
+
 is_sp <-
   ensurer::ensures_that("SpatialPoints" %in% class(.) ~ "table must be of SpatialPoints class from package sp.")
 
@@ -34,6 +37,8 @@ is_variogram_model <-
 `: spdf` <-
   ensurer::ensures_that("SpatialPointsDataFrame" %in% class(.) ~ "this function should return a SpatialPointsDataFrame class object from package sp.")
 
+`: sp` <-
+  ensurer::ensures_that("SpatialPoints" %in% class(.) ~ "this function should return a SpatialPoints class object from package sp.")
 
 
 # Package-wide assertions -------------------------------------------------

@@ -1,3 +1,31 @@
+#' Tranform a data.frame into a SpatialPoints
+#'
+#' Assign a Coordinate Reference System proj4 string and identify geographical
+#' coordinates in a `data.frame` to return a SpatialPoints object. Geographical coordinates
+#' must be present in the `data.frame` and named `X`, and `Y`.
+#'
+#' @param tab a data.fram typically build via [expand.grid()]
+#' @param crs_s a proj4string coordinate reference system typically returned by [sp::proj4string()]
+#'
+#' @return a [sp::SpatialPoints()] for `tab` with a crs assigned and X, Y coordinates identified
+#' @export
+#' @md
+to_sp <- function(tab, crs_s) `: sp` ({
+  is_df(tab)
+  sp::coordinates(tab) <- ~ X + Y
+  sp::proj4string(tab) <- crs_s
+  tab
+})
+
+
+form_grid <- function(row, res, buffer) {
+  seq(
+    from = row[1] - buffer,
+    to   = row[2] + buffer,
+    by   = res) }
+
+
+
 #' Spatialize nutrient fertilization plans
 #'
 #' Spatialization is performed bny fitting a variogram model to the nutrients
@@ -74,14 +102,14 @@ spatial_nutrient <- function(sp_df, model = "auto", grid_spdf = NULL, spat_res =
     # in the sp_df bounding box with same CRS
     ensurer::ensure(spat_res, +is_numeric, +is_positive)
     sp_bbox   <- sp::bbox(sp_df)
-    grid_spdf <- expand.grid(
-      apply(
-        sp_bbox,
-        1,     # on rows
-        function(row) { seq(from = row[1], to = row[2], by = spat_res) }
-    ))
-    sp::coordinates(grid_spdf) <- ~ X + Y
-    sp::proj4string(grid_spdf) <- sp::proj4string(sp_df)
+    grid_spdf <- to_sp(
+      tab = expand.grid(
+        apply(
+          sp_bbox,
+          1,     # on rows
+          function(row) { seq(from = row[1], to = row[2], by = spat_res) }
+      )),
+      crs_s = sp::proj4string(sp_df))
   }
 
   # check grid is fine
@@ -118,4 +146,3 @@ spatial_nutrient <- function(sp_df, model = "auto", grid_spdf = NULL, spat_res =
   }
   spatial_l
 })
-
