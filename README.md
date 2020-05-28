@@ -51,130 +51,10 @@ ability to spatialize soil demand concentrations from the soil sample
 points over the whole field may allow farmers to precisely calibrate
 nutrient spreasing.
 
-### Step 1: compute nutrient demand at soil sample level
-
-We will be using a built-in dataset to demonstrate how to compute and
-spatialise a field nutrient demand plan:
-
-``` r
-data(soils)
-knitr::kable(soils)
-```
-
-| id | N\_pc | C\_pc |       CNR | SOM\_pc | P\_ppm | K\_ppm | Limestone\_pc | Clay\_pc |
-| -: | ----: | ----: | --------: | ------: | -----: | -----: | ------------: | -------: |
-|  1 | 0.139 |  1.33 |  9.568345 |    2.30 |     11 |    449 |          17.4 |       34 |
-|  2 | 0.165 |  1.62 |  9.818182 |    2.79 |     14 |    359 |           9.5 |       37 |
-|  3 | 0.160 |  1.56 |  9.750000 |    2.69 |     14 |    398 |          12.2 |       40 |
-|  4 | 0.164 |  1.61 |  9.817073 |    2.77 |     14 |    492 |          10.3 |       34 |
-|  5 | 0.122 |  1.14 |  9.344262 |    1.97 |     21 |    347 |           0.6 |       38 |
-|  6 | 0.145 |  1.39 |  9.586207 |    2.40 |     14 |    328 |           6.3 |       40 |
-|  7 | 0.159 |  1.55 |  9.748428 |    2.67 |     14 |    355 |           8.7 |       34 |
-|  8 | 0.163 |  1.59 |  9.754601 |    2.73 |     15 |    410 |          13.4 |       34 |
-|  9 | 0.143 |  1.37 |  9.580420 |    2.36 |     14 |    343 |           9.5 |       37 |
-| 10 | 0.152 |  1.47 |  9.671053 |    2.54 |     12 |    394 |          13.4 |       36 |
-| 11 | 0.164 |  1.60 |  9.756098 |    2.76 |     14 |    324 |          10.3 |       37 |
-| 12 | 0.137 |  1.31 |  9.562044 |    2.25 |     11 |    297 |           5.3 |       40 |
-| 13 | 0.173 |  1.70 |  9.826590 |    2.93 |     12 |    398 |          13.0 |       38 |
-| 14 | 0.189 |  1.88 |  9.947090 |    3.24 |     15 |    304 |          11.9 |       38 |
-| 15 | 0.145 |  1.39 |  9.586207 |    2.40 |     13 |    289 |           2.9 |       40 |
-| 16 | 0.162 |  1.58 |  9.753086 |    2.73 |     16 |    351 |          10.3 |       34 |
-| 17 | 0.205 |  2.06 | 10.048780 |    3.56 |     20 |    476 |          11.9 |       36 |
-| 18 | 0.148 |  1.43 |  9.662162 |    2.47 |     12 |    355 |           5.5 |       39 |
-| 19 | 0.154 |  1.49 |  9.675325 |    2.58 |     12 |    351 |          13.0 |       36 |
-| 20 | 0.146 |  1.41 |  9.657534 |    2.43 |     14 |    285 |           8.3 |       37 |
-
-This datasets holds the actual soil features of 20 samples digged from a
-field in the north of Rome, in 2019. Soil features include:
-
-  - **id**: a simple id for each soil sample
-  - **N\_pc**: nitrogen content in %
-  - **C\_pc**: carbon content in %
-  - **CNR**: carbon / nitrogen ratio
-  - **SOM\_pc**: soil organic matter in %
-  - **P\_ppm**: phosphorus content in ppm (mg/kg)
-  - **K\_ppm**: potassium content in ppm (mg/kg)
-  - **Limestone\_pc**: calcium (Ca) content in %
-  - **Clay\_pc**: clay content in %
-
-A few more environmental and crop-related variables are still needed.
-They can be easily stored in a `R` list:
-
-``` r
-soil_vars <- list(
-  # Common vars among nitrogen, phosphorus, and potassium
-  crop                 = "Girasole", # Sunflower, to be looked up in table 15.2 (page 63)
-  part                 = "Frutti",
-  expected_yield_kg_ha = 1330L,
-  texture              = "Loam", # to be chosen among Sandy, Loam, Clayey
-  
-  # Additional vars for nitrogen
-  
-  # Sunflower, to be looked up in table 15.3 (page 67)
-  crop_type            = "Girasole",
-  # Mixed grassland, less than 5% fabaceae; to be looked up in table 5 (page 24)
-  prev_crop            = "Prati: polifita con meno del 5%", 
-  # to be looked up in table 4 (page 23)
-  drainage_rate        = "slow",
-  # Rainfall between October and January in mm
-  oct_jan_pr_mm        = 350L,
-  n_supply_prev_frt_kg_ha = 0L,
-  n_supply_atm_coeff   = 1,
-
-  # Common vars among phosphorus and potassium
-  # Depth of tilled soil in cm
-  soil_depth_cm        = 30L,
-  
-  # Additional vars for phosphorus
-  crop_class           = "Girasole") # Sunflower, to be looked up in table 10 (page 32)
-```
-
-Crop-related variables are looked ip in the Regione Lazio guidelines for
-fertilization (see `fertplan`
-[package](https://github.com/mbask/fertplan) for more information on the
-guidelines). For the sake of simplicity, environmental and crop-related
-variables are shared among soil samples. Should it be not the case
-`fetplan` package may be used to compute nutrient demands for varying
-environmental and crop-related variables.
-
-The first step is to compute the nutrients demand for each soil sample:
-
-``` r
-nutrient_dt <- demand_nutrient(soils, soil_vars, nutrient = "all", blnc_cmpt = FALSE)
-print(nutrient_dt)
-#>     nitrogen_kg_ha phosphorus_kg_ha potassium_kg_ha
-#>  1:       -23.4051          83.9776      -1854.4582
-#>  2:       -28.9015          60.0745      -1332.6616
-#>  3:       -27.7770          61.6540      -1638.2890
-#>  4:       -28.6766          60.5425      -2124.7906
-#>  5:       -19.6988          19.0504      -1268.5222
-#>  6:       -24.5205          58.2025      -1168.7290
-#>  7:       -27.5521          59.6065      -1263.4990
-#>  8:       -28.2177          56.2408      -1609.2730
-#>  9:       -24.0707          60.0745      -1228.7032
-#> 10:       -26.0948          74.5864      -1542.9418
-#> 11:       -28.5596          60.5425      -1105.2526
-#> 12:       -22.8383          74.0677       -960.7810
-#> 13:       -30.4667          74.2900      -1603.4698
-#> 14:       -31.1401          55.4803       -986.1154
-#> 15:       -24.5205          61.5097       -907.1170
-#> 16:       -28.2268          48.7957      -1238.3518
-#> 17:       -30.9945          25.4893      -2069.9722
-#> 18:       -25.3122          68.7325      -1335.4540
-#> 19:       -26.5446          74.2900      -1266.5722
-#> 20:       -24.8624          59.3725       -851.8540
-```
-
-We computed all three macronutrients demands (NPK) by specifying “all”
-to the `nutrient` argument. We could have specified one or more nutrient
-by simply passing a vector of characters such as `c("nitrogen",
-"potassium")`.
-
-### Step 2: spatialise nutrient demands at field level
-
 We will now be using the `soil_spatial` builtin dataset. This dataset
 collects nutrient demands for the same 20 soil sample as the `soils`
-dataset and includes samples geographic coordinates as “X”, and “Y”:
+dataset in package `fertplan` and includes samples geographic
+coordinates as “X”, and “Y”:
 
 ``` r
 data("soils_spatial")
@@ -182,27 +62,27 @@ knitr::kable(soils_spatial)
 ```
 
 | id |       X |       Y |  nitrogen | phosphorus |   potassium |
-| -: | ------: | ------: | --------: | ---------: | ----------: |
-|  1 | 1405396 | 5175767 | \-23.4051 |    83.9776 | \-1854.4582 |
-|  2 | 1405537 | 5175798 | \-28.9015 |    60.0745 | \-1332.6616 |
-|  3 | 1405486 | 5175801 | \-27.7770 |    61.6540 | \-1638.2890 |
-|  4 | 1405503 | 5175761 | \-28.6766 |    60.5425 | \-2124.7906 |
-|  5 | 1405555 | 5175659 | \-19.6988 |    19.0504 | \-1268.5222 |
-|  6 | 1405553 | 5175713 | \-24.5205 |    58.2025 | \-1168.7290 |
-|  7 | 1405508 | 5175740 | \-27.5521 |    59.6065 | \-1263.4990 |
-|  8 | 1405524 | 5175780 | \-28.2177 |    56.2408 | \-1609.2730 |
-|  9 | 1405571 | 5175771 | \-24.0707 |    60.0745 | \-1228.7032 |
-| 10 | 1405481 | 5175750 | \-26.0948 |    74.5864 | \-1542.9418 |
-| 11 | 1405573 | 5175848 | \-28.5596 |    60.5425 | \-1105.2526 |
-| 12 | 1405646 | 5175819 | \-22.8383 |    74.0677 |  \-960.7810 |
-| 13 | 1405543 | 5175910 | \-30.4667 |    74.2900 | \-1603.4698 |
-| 14 | 1405642 | 5175899 | \-31.1401 |    55.4803 |  \-986.1154 |
-| 15 | 1405679 | 5175881 | \-24.5205 |    61.5097 |  \-907.1170 |
-| 16 | 1405589 | 5175851 | \-28.2268 |    48.7957 | \-1238.3518 |
-| 17 | 1405649 | 5175930 | \-30.9945 |    25.4893 | \-2069.9722 |
-| 18 | 1405647 | 5175863 | \-25.3122 |    68.7325 | \-1335.4540 |
-| 19 | 1405511 | 5175874 | \-26.5446 |    74.2900 | \-1266.5722 |
-| 20 | 1405599 | 5175804 | \-24.8624 |    59.3725 |  \-851.8540 |
+| :- | ------: | ------: | --------: | ---------: | ----------: |
+| 11 | 1405573 | 5175848 | \-23.4051 |    83.9776 | \-1854.4582 |
+| 20 | 1405599 | 5175804 | \-28.9015 |    60.0745 | \-1332.6616 |
+| 13 | 1405543 | 5175910 | \-27.7770 |    61.6540 | \-1638.2890 |
+| 12 | 1405646 | 5175819 | \-28.6766 |    60.5425 | \-2124.7906 |
+| 17 | 1405649 | 5175930 | \-19.6988 |    19.0504 | \-1268.5222 |
+| 16 | 1405589 | 5175851 | \-24.5205 |    58.2025 | \-1168.7290 |
+| 19 | 1405511 | 5175874 | \-27.5521 |    59.6065 | \-1263.4990 |
+| 18 | 1405647 | 5175863 | \-28.2177 |    56.2408 | \-1609.2730 |
+| 15 | 1405679 | 5175881 | \-24.0707 |    60.0745 | \-1228.7032 |
+| 14 | 1405642 | 5175899 | \-26.0948 |    74.5864 | \-1542.9418 |
+| 1  | 1405396 | 5175767 | \-28.5596 |    60.5425 | \-1105.2526 |
+| 10 | 1405481 | 5175750 | \-22.8383 |    74.0677 |  \-960.7810 |
+| 3  | 1405486 | 5175801 | \-30.4667 |    74.2900 | \-1603.4698 |
+| 2  | 1405537 | 5175798 | \-31.1401 |    55.4803 |  \-986.1154 |
+| 7  | 1405508 | 5175740 | \-24.5205 |    61.5097 |  \-907.1170 |
+| 6  | 1405553 | 5175713 | \-28.2268 |    48.7957 | \-1238.3518 |
+| 9  | 1405571 | 5175771 | \-30.9945 |    25.4893 | \-2069.9722 |
+| 8  | 1405524 | 5175780 | \-25.3122 |    68.7325 | \-1335.4540 |
+| 5  | 1405555 | 5175659 | \-26.5446 |    74.2900 | \-1266.5722 |
+| 4  | 1405503 | 5175761 | \-24.8624 |    59.3725 |  \-851.8540 |
 
 Spatialisation is carried out by ordinary kriging through the function
 `gstat::krige`. Function `spatial_nutrient` is a wrapper around
@@ -242,7 +122,7 @@ last_plot() %+% as.data.frame(spatials_l$p) %+% labs(title = "P fertilization pl
 last_plot() %+% as.data.frame(spatials_l$k) %+% labs(title = "K fertilization plan")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)![](README_files/figure-gfm/unnamed-chunk-8-2.png)![](README_files/figure-gfm/unnamed-chunk-8-3.png)
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)![](README_files/figure-gfm/unnamed-chunk-5-2.png)![](README_files/figure-gfm/unnamed-chunk-5-3.png)
 
 A rough interpretation of the plans clearly suggests that there is a
 need for a light fertilization by phosphorus, that potassium is in great
@@ -262,12 +142,12 @@ spatials_l <- c(
 #> [using ordinary kriging]
 #> [using ordinary kriging]
 #> [using ordinary kriging]
-last_plot() %+% as.data.frame(spatials_l$p) %+% labs(title = "N fertilization plan")
+last_plot() %+% as.data.frame(spatials_l$n) %+% labs(title = "N fertilization plan")
 last_plot() %+% as.data.frame(spatials_l$p) %+% labs(title = "P fertilization plan")
 last_plot() %+% as.data.frame(spatials_l$k) %+% labs(title = "K fertilization plan")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)![](README_files/figure-gfm/unnamed-chunk-9-2.png)![](README_files/figure-gfm/unnamed-chunk-9-3.png)
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)![](README_files/figure-gfm/unnamed-chunk-6-2.png)![](README_files/figure-gfm/unnamed-chunk-6-3.png)
 
 ```` 
 

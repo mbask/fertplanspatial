@@ -68,7 +68,7 @@ spatials_l <- c(
   spatial_nutrient(soils_spatial, model = "auto", spat_res = 10, nutrient = "nitrogen", alpha = seq(0, 359, 15)),
   spatial_nutrient(soils_spatial, model = "Ste",  spat_res = 10, nutrient = "phosphorus"),
   spatial_nutrient(soils_spatial, model = "auto", spat_res = 10, nutrient = "potassium", alpha = seq(0, 359, 30)))
-last_plot() %+% as.data.frame(spatials_l$p) %+% labs(title = "N fertilization plan")
+last_plot() %+% as.data.frame(spatials_l$n) %+% labs(title = "N fertilization plan")
 last_plot() %+% as.data.frame(spatials_l$p) %+% labs(title = "P fertilization plan")
 last_plot() %+% as.data.frame(spatials_l$k) %+% labs(title = "K fertilization plan")
 ```
