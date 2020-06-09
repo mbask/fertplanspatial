@@ -95,10 +95,10 @@ preciseness, by passing the appropriate named arguments to
 `spatial_nutrient`. Ordinary kriging is performed on a spatial grid
 built on the soil sampling points bounding box by default. Should a
 specific grid be needed (ie a larger extent than the one where soils
-sampled wrere digged) it should be passed as a \[sp::SpatialPoints()\]
-object. We will simply let `automap::autofitVariogram` select the
-optimal variogram and pass it to ordinary kriging on the default
-bounding box, with a 10 metres spatial resolution:
+sampled were dug) it should be passed as a `sp::SpatialPoints()` object.
+We will simply let `automap::autofitVariogram` select the optimal
+variogram and pass it to ordinary kriging on the default bounding box,
+with a 10 metres spatial resolution:
 
 ``` r
 spatials_l <- spatial_nutrient(soils_spatial, spat_res = 10)
@@ -149,16 +149,15 @@ last_plot() %+% as.data.frame(spatials_l$k) %+% labs(title = "K fertilization pl
 
 ![](README_files/figure-gfm/unnamed-chunk-6-1.png)![](README_files/figure-gfm/unnamed-chunk-6-2.png)![](README_files/figure-gfm/unnamed-chunk-6-3.png)
 
-```` 
+The fertilization plan can be easily converted into a raster stack and
+saved as GeoTIFF image for further GIS elaboration:
 
-The fertilization plan can be easily converted into a raster stack and saved as GeoTIFF image for further GIS elaboration:
-
-```r
+``` r
 # coerce to SpatialPixelsDataFrame
 kriges_spdf_l <- lapply(spatials_l, function(spg) { sp::gridded(spg) <- TRUE; spg })
 krige_rs      <- raster::stack(lapply(kriges_spdf_l, raster::raster))
 raster::writeRaster(krige_rs, "npk_fert_plans.tif", format = "GTiff")
-````
+```
 
 ## References
 
