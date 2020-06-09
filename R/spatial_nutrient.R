@@ -99,6 +99,7 @@ spatial_nutrient <- function(sp_df, model = "auto", grid_spdf = NULL, bbox_buffe
     is_integer(bbox_buffer)
 
     sp_bbox   <- sp::bbox(sp_df)
+
     grid_spdf <- to_sp(
       tab = expand.grid(
         apply(
