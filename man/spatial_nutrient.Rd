@@ -41,7 +41,7 @@ spatialized fertilization plan to compute among "nitrogen",
 "phosphorus", and "potassium". Any combination of the three
 nutrients can be given or "all" (default) to compute all of them.}
 
-\item{...}{arguments that will be passed to \code{\link[gstat:vgm]{gstat::vgm()}}}
+\item{...}{arguments that will be passed to \code{\link[gstat:vgm]{gstat::vgm()}} or \code{\link[automap:autofitVariogram]{automap::autofitVariogram()}}}
 }
 \value{
 a list with as many elements as nutrients given as \code{nutrient}

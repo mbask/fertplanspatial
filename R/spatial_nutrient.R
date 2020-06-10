@@ -53,7 +53,7 @@ to_sp <- function(tab, crs_s) `: spatial` ({
 #'   spatialized fertilization plan to compute among "nitrogen",
 #'   "phosphorus", and "potassium". Any combination of the three
 #'   nutrients can be given or "all" (default) to compute all of them.
-#' @param ... arguments that will be passed to [gstat::vgm()]
+#' @param ... arguments that will be passed to [gstat::vgm()] or [automap::autofitVariogram()]
 #'
 #' @md
 #' @return a list with as many elements as nutrients given as `nutrient`
