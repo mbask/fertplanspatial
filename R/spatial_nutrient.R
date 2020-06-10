@@ -112,7 +112,8 @@ spatial_nutrient <- function(sp_df, model = "auto", grid_spdf = NULL, bbox_buffe
 
   # check grid is fine
   is_sp(grid_spdf)
-  if (is.na(sp::proj4string(grid_spdf)) | sp::proj4string(grid_spdf) !=  sp::proj4string(sp_df)) {
+  if (is.na(sp::proj4string(grid_spdf)) | !sp::identicalCRS(grid_spdf, sp_df)) {
+  #if (is.na(sp::proj4string(grid_spdf)) | sp::proj4string(grid_spdf) !=  sp::proj4string(sp_df)) {
     warning("CRS of grid does not match CRS of nutrient spatial soil dataset; setting the latter CRS on the former.")
     sp::proj4string(grid_spdf) <- sp::proj4string(sp_df)
   }
