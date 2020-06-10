@@ -102,8 +102,23 @@ with a 10 metres spatial resolution:
 
 ``` r
 spatials_l <- spatial_nutrient(soils_spatial, spat_res = 10)
+#> [1] "Model"
+#>   model    psill    range
+#> 1   Nug 3.130189  0.00000
+#> 2   Sph 6.490592 75.73972
+#> [1] ""
 #> [using ordinary kriging]
+#> [1] "Model"
+#>   model    psill    range kappa
+#> 1   Nug 243.2857   0.0000     0
+#> 2   Ste 393.4765 434.6112    10
+#> [1] ""
 #> [using ordinary kriging]
+#> [1] "Model"
+#>   model    psill    range kappa
+#> 1   Nug      0.0  0.00000     0
+#> 2   Ste 142534.6 28.57101    10
+#> [1] ""
 #> [using ordinary kriging]
 ```
 
@@ -138,9 +153,24 @@ model) and \[automap::autofitVariogram()\] (controlled by argument
 spatials_l <- c(
   spatial_nutrient(soils_spatial, model = "auto", spat_res = 10, nutrient = "nitrogen", alpha = seq(0, 359, 15)),
   spatial_nutrient(soils_spatial, model = "Ste",  spat_res = 10, nutrient = "phosphorus"),
-  spatial_nutrient(soils_spatial, model = "auto", spat_res = 10, nutrient = "potassium", alpha = seq(0, 359, 30)))
+  spatial_nutrient(soils_spatial, model = "auto", spat_res = 10, nutrient = "potassium", alpha = seq(0, 359, 15)))
+#> [1] "Model"
+#>   model    psill   range kappa
+#> 1   Nug 0.000000  0.0000     0
+#> 2   Ste 8.740936 29.9359     2
+#> [1] ""
 #> [using ordinary kriging]
+#> [1] "Model"
+#>   model psill range kappa
+#> 1   Nug    NA     0   0.0
+#> 2   Ste    NA    NA   0.5
+#> [1] ""
 #> [using ordinary kriging]
+#> [1] "Model"
+#>   model    psill    range kappa
+#> 1   Nug      0.0  0.00000   0.0
+#> 2   Ste 150922.3 86.36246   0.3
+#> [1] ""
 #> [using ordinary kriging]
 last_plot() %+% as.data.frame(spatials_l$n) %+% labs(title = "N fertilization plan")
 last_plot() %+% as.data.frame(spatials_l$p) %+% labs(title = "P fertilization plan")
