@@ -23,7 +23,7 @@ and 6 features(columns):
 soils_spatial
 }
 \description{
-A \code{\link[sp:SpatialPointsDataFrame]{sp::SpatialPointsDataFrame()}} dataset containing the results
+A \code{\link[sp:SpatialPoints]{sp::SpatialPointsDataFrame()}} dataset containing the results
 of applying \code{\link[=demand_nutrient]{demand_nutrient()}} on \code{\link{soils}} dataset to get
 NPK fertilization plans.
 }

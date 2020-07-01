@@ -45,14 +45,14 @@ nutrients can be given or "all" (default) to compute all of them.}
 }
 \value{
 a list with as many elements as nutrients given as \code{nutrient}
-parameter. Each element is a \code{\link[sp:SpatialPointsDataFrame]{sp::SpatialPointsDataFrame()}}.
+parameter. Each element is a \code{\link[sp:SpatialPoints]{sp::SpatialPointsDataFrame()}}.
 }
 \description{
 Spatialization is performed bny fitting a variogram model to the nutrients
 fertilization plans and then performing ordinary kriging.
 }
 \details{
-The function returns a list of \code{\link[sp:SpatialPointsDataFrame]{sp::SpatialPointsDataFrame()}} grids on the
+The function returns a list of \code{\link[sp:SpatialPoints]{sp::SpatialPointsDataFrame()}} grids on the
 bounding box of the spatial soil nutrients fertilization dataset, as
 returned by \code{\link[=demand_nutrient]{demand_nutrient()}}. Each spatial grid can be readily plotted or
 rasterized.

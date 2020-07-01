@@ -28,5 +28,5 @@ Suggests:
     rmarkdown,
     ggplot2,
     raster
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr
